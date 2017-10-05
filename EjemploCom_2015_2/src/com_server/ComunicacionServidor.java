@@ -20,9 +20,12 @@ public class ComunicacionServidor extends Thread {
 	ServerSocket ss;
 	private Socket cliente;
 	public int turno;
+	public int fuerza;
 	private int turnoOtroJugador;
+	private int fuerzaOtroJugador;
 	private boolean turnoActivo;
 	private boolean empezartiempo;
+	
 	
 	public int actualSecs; 
 	public int actualMins; 
@@ -81,24 +84,38 @@ public int cicloJuego;
 				turnoOtroJugador = Integer.parseInt(partes[1]);
 				
 				System.out.println("miTurno_server: "+turno+" "+"turnoOtro_server: "+turnoOtroJugador);
-			//	if (turno == turnoOtroJugador) {
+			
 				
 				
 				 if (turnoOtroJugador==3) {
 					 empezartiempo = true;
 					turnoActivo=true;
 					
-					 restartSecs = actualSecs; //stores elapsed SECONDS
-					    scrnSecs = startSec; //restart screen timer  
-					    restartMins = actualMins; //stores elapsed MINUTES
-					    scrnMins = startMin; //restart screen timer
-					 //if mouse is pressed, restart timer
+					 restartSecs = actualSecs; 
+					    scrnSecs = startSec; 
+					    restartMins = actualMins; 
+					    scrnMins = startMin;
+					
 				}	
 					
 				//} else {
 					//turnoActivo = false;
 				//}
 			}
+			
+			
+			if (mensaje.contains("fuerza")) {
+				String[] partes = mensaje.split("/");
+
+				fuerzaOtroJugador = Integer.parseInt(partes[1]);
+				
+				System.out.println("FUERZA_server: "+fuerza+" "+"FUERZA_cliente: "+fuerzaOtroJugador);
+		
+				
+				
+			}
+
+			
 
 
 		} catch (IOException e) {
@@ -132,6 +149,7 @@ public int cicloJuego;
 			
 			//turnoActivo=false;
 			salidaDatos.writeUTF("turno/"+ turno);
+			salidaDatos.writeUTF("fuerza/"+ fuerza);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 import com_server.ComunicacionServidor;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Ejemplo extends PApplet {
 	private String textoTurno;
@@ -10,16 +11,41 @@ public class Ejemplo extends PApplet {
 // TIEMPO 
 
 	boolean empezarTiempo= false;
-	boolean escogio = false;
+	
+	
+	
+	// IMAGENES 
+	
+	private PImage fondo;
+	private PImage tirar, ceder;
+	private PImage pj1,pj2,pj3,pj4,pj5,pj6,pj7,pj8,pj9,pj10;
+	
 	
 
 	
 	
 	public void setup() {
 		textoTurno = "";
-		size(600, 600);
+		size(1200, 700);
 		comS = new ComunicacionServidor(5001);
 
+		// CARGAR IMAGENES
+		
+		fondo = loadImage("../imagenes/Escenario.png");
+		
+		tirar = loadImage("../imagenes/Boton Ceder.png");
+		ceder = loadImage("../imagenes/Boton Halar.png");
+		
+		pj1 = loadImage("../imagenes/1.png");
+		pj2 = loadImage("../imagenes/2.png");
+		pj3 = loadImage("../imagenes/3.png");
+		pj4 = loadImage("../imagenes/4.png");
+		pj5 = loadImage("../imagenes/5.png");
+		pj6 = loadImage("../imagenes/6.png");
+		pj7 = loadImage("../imagenes/7.png");
+		pj8 = loadImage("../imagenes/8.png");
+		pj9 = loadImage("../imagenes/9.png");
+		pj10 = loadImage("../imagenes/10.png");
 		
 		
 	}
@@ -35,20 +61,23 @@ public class Ejemplo extends PApplet {
 
 		switch (comS.turno) {
 		case 0:
-			background(255, 0, 0);
+			background(255);
+			image(fondo, 0, 0);
 			text("instrucciones1", (width / 2) - 60, 50);
 comS.setTurnoActivo(true);
 			
 			break;
 
 		case 1:
-			background(0, 255, 0);
+			background(255);
+			image(fondo, 0, 0);
 			text("instrucciones2", (width / 2) - 60, 50);
 			comS.setTurnoActivo(true);
 			break;
 
 		case 2:
-			background(0, 0, 255);
+			background(255);
+			image(fondo, 0, 0);
 			text("instrucciones3", (width / 2) - 60, 50);
 			comS.setTurnoActivo(true);
 
@@ -65,7 +94,8 @@ comS.setTurnoActivo(true);
 		}
 			
 			
-			background(0, 255, 255);
+			background(255);
+			
 			text("Juego", (width / 2) - 60, 50);
 
 			// switch de ciclos los ciclos son: Seleccionar un Jugador,
@@ -116,7 +146,7 @@ comS.setTurnoActivo(true);
 			case 0:
 
 				//text(comS.cicloJuego, 20, 30);
-				background(255);
+				image(fondo, 0, 0);
 				fill(255,0,0);
 				
 				
@@ -208,6 +238,12 @@ comS.setTurnoActivo(true);
 		}
 		
 	}
+	
+	 @Override
+	public void mouseClicked() {
+
+	 
+	 }
 	
 	
 }
