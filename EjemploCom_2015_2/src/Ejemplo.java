@@ -222,7 +222,8 @@ public class Ejemplo extends PApplet {
 					fill(0, 0, 0, 95);
 					rect(0, 0, 1200, 800);
 					fill(255);
-					text("ESPERANDO JUGADOR", width / 2 - 150, height / 2);
+					textSize(50);
+					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2-6);
 				}
 
 				break;
@@ -269,10 +270,10 @@ public class Ejemplo extends PApplet {
 			break;
 		}
 
-		fill(0);
-		textoTurno = "" + comS.getTurno();
-		text(textoTurno, 200, 200);
-		text("Servidor", 200, 150);
+		//fill(0);
+		//textoTurno = "" + comS.getTurno();
+		//text(textoTurno, 200, 200);
+		//text("Servidor", 200, 150);
 
 		if (comS.turno > 4) {
 			comS.turno = 3;
