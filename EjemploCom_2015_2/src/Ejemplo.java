@@ -12,9 +12,9 @@ public class Ejemplo extends PApplet {
 	boolean empezarTiempo = false;
 
 	// IMAGENES
-
-	private PImage fondo;
-	private PImage tirar, ceder;
+	private boolean card1, card2, card3, card4, card5, card6, card7, card8, card9, card10;
+	private PImage inicio, fondo, instrucciones1, instrucciones2;
+	private PImage tirar, ceder, siguiente;
 	private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
 
 	public void setup() {
@@ -24,8 +24,12 @@ public class Ejemplo extends PApplet {
 
 		// CARGAR IMAGENES
 
+		inicio = loadImage("../imagenes/Inicio.png");
 		fondo = loadImage("../imagenes/Escenario.png");
+		instrucciones1 = loadImage("../imagenes/Instrucciones.png");
+		instrucciones2 = loadImage("../imagenes/Premios.png");
 
+		siguiente = loadImage("../imagenes/Boton Siguiente.png");
 		tirar = loadImage("../imagenes/Boton Ceder.png");
 		ceder = loadImage("../imagenes/Boton Halar.png");
 
@@ -52,23 +56,20 @@ public class Ejemplo extends PApplet {
 		switch (comS.turno) {
 		case 0:
 			background(255);
-			image(fondo, 0, 0);
-			text("instrucciones1", (width / 2) - 60, 50);
+			image(inicio, 0, 0);
 			comS.setTurnoActivo(true);
 
 			break;
 
 		case 1:
 			background(255);
-			image(fondo, 0, 0);
-			text("instrucciones2", (width / 2) - 60, 50);
+			image(instrucciones1, 0, 0);
 			comS.setTurnoActivo(true);
 			break;
 
 		case 2:
 			background(255);
-			image(fondo, 0, 0);
-			text("instrucciones3", (width / 2) - 60, 50);
+			image(instrucciones2, 0, 0);
 			comS.setTurnoActivo(true);
 
 			break;
@@ -95,9 +96,15 @@ public class Ejemplo extends PApplet {
 				empezarTiempo = true;
 			}
 
-			if (mousePressed && comS.isTurnoActivo() == true && empezarTiempo==true) {
-				comS.setTurnoActivo(false);
-			}
+			// DESACTIVAR EL TURNO UNA VEZ SELECCIONA UNA CARTA
+
+			//if (mousePressed && comS.isTurnoActivo() == true && empezarTiempo == true) {
+
+				
+
+			//}
+
+			// --------------------------------------------------------------
 
 			if (empezarTiempo == true) {
 				if (comS.scrnSecs >= 10) {
@@ -112,7 +119,7 @@ public class Ejemplo extends PApplet {
 
 				}
 
-			}else {
+			} else {
 				comS.setTurnoActivo(false);
 			}
 
@@ -131,99 +138,130 @@ public class Ejemplo extends PApplet {
 				// text(comS.cicloJuego, 20, 30);
 				image(fondo, 0, 0);
 
-				
+				// AQUI VA EL DISEÑO DE LA CARTAS Y LAS ZONAS SENSIBLES CUANDO
+				// EL MOUSE ESTE ENCIMA DE LA CARTA
 
-				// AQUI VA EL DISEÑO DE LA CARTAS Y LAS ZONAS SENSIBLES CUANDO EL MOUSE ESTE ENCIMA DE LA CARTA
-				
-				
-			
 				// LINEA SUPERIOR DE CARTAS
-				
-				
-				//CARTA 1 
-				
-				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 50 && mouseY <= 300) {
-					fill(255, 165, 0);
-					rect(59 - 2, 49, 205, 255, 15);
-					fill(0);
-					textSize(24);
-					text("PJ Tongue", 108, 80);
-					image(pj1, 93, 100,136,161);
-					text("Fuerza = 10", 78+13, 288);
+
+				// CARTA 1
+
+				if (card1 == false) {
+
+					if (mouseX >= 60 && mouseX <= 260 && mouseY >= 50 && mouseY <= 300) {
+						fill(255, 165, 0);
+						rect(59 - 2, 48, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ Tongue", 108, 80);
+						image(pj1, 93, 100, 136, 161);
+						text("Fuerza = 8", 83 + 13, 288);
+
+					} else {
+						fill(255, 165, 0);
+						rect(50 + 10, 50, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ Tongue", 110, 80);
+						image(pj1, 95, 100, 131, 156);
+						text("Fuerza = 8", 83 + 15, 285);
+					}
 
 				} else {
-					fill(255, 165, 0);
-					rect(50 + 10, 50, 200, 250, 15);
 					fill(0);
-					textSize(22);
-					text("PJ Tongue", 110, 80);
-					image(pj1, 95, 100,131,156);
-					text("Fuerza = 10", 78+15, 285);
+					rect(50 + 10, 50, 200, 250, 15);
 				}
 
-				
-				//CARTA 2
-				
+				// CARTA 2
+
 				if (mouseX >= 280 && mouseX <= 480 && mouseY >= 50 && mouseY <= 300) {
 					fill(255, 165, 0);
-					rect(270 + 7, 49, 205, 255, 15);
+					rect(270 + 7, 48, 205, 255, 15);
 
 				} else {
 					fill(255, 165, 0);
 					rect(270 + 10, 50, 200, 250, 15);
 				}
-				
-				//CARTA 3
-				
+
+				// CARTA 3
+
 				if (mouseX >= 500 && mouseX <= 700 && mouseY >= 50 && mouseY <= 300) {
 					fill(255, 165, 0);
-					rect(490 + 7, 49, 205, 255, 15);
+					rect(490 + 7, 48, 205, 255, 15);
 
 				} else {
 					fill(255, 165, 0);
 					rect(490 + 10, 50, 200, 250, 15);
 				}
-				
-				//CARTA 4
-				
+
+				// CARTA 4
+
 				if (mouseX >= 720 && mouseX <= 920 && mouseY >= 50 && mouseY <= 300) {
 					fill(255, 165, 0);
-					rect(710 + 7, 49, 205, 255, 15);
+					rect(710 + 7, 48, 205, 255, 15);
 
 				} else {
 					fill(255, 165, 0);
 					rect(710 + 10, 50, 200, 250, 15);
 				}
-				
-				//CARTA 5
-				
-				
-				
-				
-				
-				
-				
 
-				rect(930 + 10, 50, 200, 250, 15);
+				// CARTA 5
+				if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 50 && mouseY <= 300) {
+					fill(255, 165, 0);
+					rect(930 + 7, 48, 205, 255, 15);
+
+				} else {
+					fill(255, 165, 0);
+					rect(930 + 10, 50, 200, 250, 15);
+				}
 
 				// LINEA INFERIOR DE CARTAS
 
-				rect(50 + 10, 350, 200, 250, 15);
+				// CARTA 6
 
-				rect(270 + 10, 350, 200, 250, 15);
+				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 350 && mouseY <= 600) {
+					rect(59 - 2, 348, 205, 255, 15);
+				} else {
+					rect(50 + 10, 350, 200, 250, 15);
 
-				rect(490 + 10, 350, 200, 250, 15);
+				}
 
-				rect(710 + 10, 350, 200, 250, 15);
+				// CARTA 7
+				if (mouseX >= 280 && mouseX <= 480 && mouseY >= 350 && mouseY <= 600) {
+					rect(279 - 2, 348, 205, 255, 15);
+				} else {
+					rect(270 + 10, 350, 200, 250, 15);
+				}
 
-				rect(930 + 10, 350, 200, 250, 15);
+				// CARTA 8
+
+				if (mouseX >= 500 && mouseX <= 700 && mouseY >= 350 && mouseY <= 600) {
+
+					rect(499 - 2, 348, 205, 255, 15);
+				} else {
+					rect(490 + 10, 350, 200, 250, 15);
+
+				}
+
+				// CARTA 9
+				if (mouseX >= 720 && mouseX <= 920 && mouseY >= 350 && mouseY <= 600) {
+					rect(719 - 2, 348, 205, 255, 15);
+				} else {
+					rect(710 + 10, 350, 200, 250, 15);
+				}
+
+				// CARTA 10
+				if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 350 && mouseY <= 600) {
+					rect(939 - 2, 348, 205, 255, 15);
+				} else {
+					rect(930 + 10, 350, 200, 250, 15);
+				}
 
 				if (comS.isTurnoActivo() == false) {
 					fill(0, 0, 0, 95);
 					rect(0, 0, 1200, 800);
 					fill(255);
 					textSize(50);
-					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2-6);
+					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2 - 9);
 				}
 
 				break;
@@ -270,10 +308,10 @@ public class Ejemplo extends PApplet {
 			break;
 		}
 
-		//fill(0);
-		//textoTurno = "" + comS.getTurno();
-		//text(textoTurno, 200, 200);
-		//text("Servidor", 200, 150);
+		// fill(0);
+		// textoTurno = "" + comS.getTurno();
+		// text(textoTurno, 200, 200);
+		// text("Servidor", 200, 150);
 
 		if (comS.turno > 4) {
 			comS.turno = 3;
@@ -293,6 +331,53 @@ public class Ejemplo extends PApplet {
 	@Override
 	public void mouseClicked() {
 
-	}
+		if (comS.turno < 3) {
+			comS.turno++;
+		}
 
+		if (comS.cicloJuego == 0 && comS.isTurnoActivo() == true && empezarTiempo == true) {
+			// carta 1
+			if (card1 == false) {
+				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 50 && mouseY <= 300) {
+					comS.fuerza += 8;
+					comS.setTurnoActivo(false);
+					card1 = true;
+
+				}
+			}
+		}
+
+		// carta 2
+		if (card2 == false) {
+			if (mouseX >= 280 && mouseX <= 480 && mouseY >= 50 && mouseY <= 300) {
+				
+
+				if (empezarTiempo == true) {
+					comS.fuerza += 15;
+					comS.setTurnoActivo(false);
+					card2 = true;
+				}
+			}
+		}
+		// carta 3
+		if (card3 == false) {
+			if (mouseX >= 500 && mouseX <= 700 && mouseY >= 50 && mouseY <= 300) {
+				
+				if (empezarTiempo == true) {
+					comS.fuerza += 4;
+					comS.setTurnoActivo(false);
+					card3 = true;
+				}
+
+			}
+		} else if
+		// carta 4
+		(mouseX >= 720 && mouseX <= 920 && mouseY >= 50 && mouseY <= 300) {
+			comS.fuerza += 10;
+			if (empezarTiempo == true) {
+				comS.setTurnoActivo(false);
+			}
+
+		}
+	}
 }

@@ -138,10 +138,10 @@ public int cicloJuego;
 			salidaDatos.flush();
 			// Tras enviar se aumenta el turno en 1 y se envia;
 			
-			if (turno < 3) {
-				turno++;
+			//if (turno < 3) {
+			//	turno++;
 				
-			}
+	//		}
 
 			
 			

@@ -21,6 +21,8 @@ public class ComunicacionCliente extends Thread {
 	private Socket servidor;
 	public boolean empezar = false;	
 	public int turno;
+	public int fuerza;
+	private int fuerzaOtroJugador;
 	private int turnoOtroJugador;
 	private boolean turnoActivo;
 
@@ -78,6 +80,14 @@ public class ComunicacionCliente extends Thread {
 				//	turnoActivo = false;
 				//}
 			}
+			
+			if (mensaje.contains("fuerza")) {
+				String[] partes = mensaje.split("/");
+
+				fuerzaOtroJugador = Integer.parseInt(partes[1]);
+				System.out.println("miFuerza_cliente: "+fuerza+" "+"Fuerza_Server: "+fuerzaOtroJugador);
+				
+			}
 
 
 		} catch (IOException e) {
@@ -108,6 +118,7 @@ public class ComunicacionCliente extends Thread {
 			
 			//turnoActivo=false;
 			salidaDatos.writeUTF("turno/" + turno);
+			salidaDatos.writeUTF("fuerza/" + fuerza);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
