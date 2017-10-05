@@ -22,9 +22,23 @@ public class ComunicacionCliente extends Thread {
 	public boolean empezar = false;	
 	public int turno;
 	public int fuerza;
+	private int escogio;
 	private int fuerzaOtroJugador;
 	private int turnoOtroJugador;
+	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
+	
+	private boolean empezartiempo;
+	public int cicloJuego;
+	
+	public int actualSecs;
+	public int actualMins;
+	public int startSec = 0;
+	public int startMin = 0;
+	public int scrnSecs;
+	public int scrnMins = 0;
+	public int restartSecs = 0;
+	public int restartMins = 0;
 
 	public ComunicacionCliente(int i) {
 		puerto = i;
@@ -73,12 +87,26 @@ public class ComunicacionCliente extends Thread {
 				String[] partes = mensaje.split("/");
 
 				turnoOtroJugador = Integer.parseInt(partes[1]);
-				System.out.println("miTurno_cliente: "+turno+" "+"turnoOtro_cliente: "+turnoOtroJugador);
-				//if (turno <= turnoOtroJugador) {
-					turnoActivo = true;
-				//} else {
-				//	turnoActivo = false;
-				//}
+				System.out.println("miTurno_cliente: "+turno+" "+"turno_Server: "+turnoOtroJugador);
+
+				
+
+				if (empezartiempo==false) {
+					 if (turnoOtroJugador==3) {
+						 empezartiempo = true;
+						turnoActivo=true;
+						
+						 restartSecs = actualSecs; 
+						    scrnSecs = startSec; 
+						    restartMins = actualMins; //stores elapsed MINUTES
+						    scrnMins = startMin; //restart screen timer
+						 //if mouse is pressed, restart timer
+					}else {
+						
+					}
+				}
+				
+				
 			}
 			
 			if (mensaje.contains("fuerza")) {
@@ -88,6 +116,17 @@ public class ComunicacionCliente extends Thread {
 				System.out.println("miFuerza_cliente: "+fuerza+" "+"Fuerza_Server: "+fuerzaOtroJugador);
 				
 			}
+			
+			if (mensaje.contains("escogio")) {
+				String[] partes = mensaje.split("/");
+
+				yaEscogioElOtroJugador = Integer.parseInt(partes[1]);
+
+				System.out.println("Cliente_YaEscogio " + escogio);
+
+				
+				}
+			
 
 
 		} catch (IOException e) {
@@ -108,17 +147,15 @@ public class ComunicacionCliente extends Thread {
 			salidaDatos.writeUTF(msj);
 			System.out.println("mensaje enviado: " + msj);
 			salidaDatos.flush();
-			// Tras enviar se aumenta el turno en 1 y se envia;
-			turno++;
 			
 			if (turno==3) {
-				empezar =true;
-				
+				turno=3;
 			}
 			
 			//turnoActivo=false;
 			salidaDatos.writeUTF("turno/" + turno);
 			salidaDatos.writeUTF("fuerza/" + fuerza);
+			salidaDatos.writeUTF("escogio/" + escogio);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -141,6 +178,30 @@ public class ComunicacionCliente extends Thread {
 	public void setEmpezar(boolean empezar) {
 		this.empezar = empezar;
 	}
+
+	public void setTurnoActivo(boolean turnoActivo) {
+		this.turnoActivo = turnoActivo;
+	}
+
+	public int getTurnoOtroJugador() {
+		return turnoOtroJugador;
+	}
+
+	public void setTurnoOtroJugador(int turnoOtroJugador) {
+		this.turnoOtroJugador = turnoOtroJugador;
+	}
+
+	public boolean isEmpezartiempo() {
+		return empezartiempo;
+	}
+
+	public void setEmpezartiempo(boolean empezartiempo) {
+		this.empezartiempo = empezartiempo;
+	}
+	
+	
+	
+	
 	
 	
 }

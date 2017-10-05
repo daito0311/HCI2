@@ -21,28 +21,27 @@ public class ComunicacionServidor extends Thread {
 	private Socket cliente;
 	public int turno;
 	public int fuerza;
+	private int escogio;
 	private int turnoOtroJugador;
 	private int fuerzaOtroJugador;
+	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
 	private boolean empezartiempo;
-	
-	
-	public int actualSecs; 
-	public int actualMins; 
-	public int startSec = 0; 
-	public int startMin = 0; 
+
+	public int actualSecs;
+	public int actualMins;
+	public int startSec = 0;
+	public int startMin = 0;
 	public int scrnSecs;
-	public int scrnMins=0;
-	public int restartSecs=0; 
-	public int restartMins=0; 
-	
-	
-	
-	
-public int cicloJuego;
+	public int scrnMins = 0;
+	public int restartSecs = 0;
+	public int restartMins = 0;
+
+	public int cicloJuego;
+
 	public ComunicacionServidor(int i) {
 		puerto = i;
-		turnoActivo=true;
+		turnoActivo = true;
 		try {
 			ss = new ServerSocket(i);
 			cliente = ss.accept();
@@ -76,47 +75,52 @@ public int cicloJuego;
 
 			// si llega turno revisa si mi turno es igual o menor al turno del
 			// otro jugador, si es asi turnoActivo=true;
-			
-			
+
 			if (mensaje.contains("turno")) {
 				String[] partes = mensaje.split("/");
 
 				turnoOtroJugador = Integer.parseInt(partes[1]);
-				
-				System.out.println("miTurno_server: "+turno+" "+"turnoOtro_server: "+turnoOtroJugador);
-			
-				
-				
-				 if (turnoOtroJugador==3) {
-					 empezartiempo = true;
-					turnoActivo=true;
+
+				System.out.println("miTurno_server: " + turno + " " + "turno_CLIENTE: " + turnoOtroJugador);
+
+				// } else {
+				// turnoActivo = false;
+
+				if (empezartiempo==false) {
+					 if (turnoOtroJugador==3) {
+						 empezartiempo = true;
+						turnoActivo=true;
+						
+						 restartSecs = actualSecs; 
+						    scrnSecs = startSec; 
+						    restartMins = actualMins; //stores elapsed MINUTES
+						    scrnMins = startMin; //restart screen timer
+						 //if mouse is pressed, restart timer
+					}else {
+						
+					}
+				}
 					
-					 restartSecs = actualSecs; 
-					    scrnSecs = startSec; 
-					    restartMins = actualMins; 
-					    scrnMins = startMin;
-					
-				}	
-					
-				//} else {
-					//turnoActivo = false;
-				//}
+				// }
 			}
-			
-			
+
 			if (mensaje.contains("fuerza")) {
 				String[] partes = mensaje.split("/");
 
 				fuerzaOtroJugador = Integer.parseInt(partes[1]);
-				
-				System.out.println("FUERZA_server: "+fuerza+" "+"FUERZA_cliente: "+fuerzaOtroJugador);
-		
-				
-				
+
+				System.out.println("FUERZA_server: " + fuerza + " " + "FUERZA_cliente: " + fuerzaOtroJugador);
+
 			}
 
-			
+			if (mensaje.contains("escogio")) {
+				String[] partes = mensaje.split("/");
 
+				yaEscogioElOtroJugador = Integer.parseInt(partes[1]);
+
+				System.out.println("Server_YaEscogio " + escogio);
+
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -137,19 +141,21 @@ public int cicloJuego;
 			System.out.println("mensaje enviado: " + msj);
 			salidaDatos.flush();
 			// Tras enviar se aumenta el turno en 1 y se envia;
-			
-			//if (turno < 3) {
-			//	turno++;
-				
-	//		}
 
+			// if (turno < 3) {
+			// turno++;
+			if (turno==3) {
+				turno=3;
+			}
+		
 			
 			
-			
-			
-			//turnoActivo=false;
-			salidaDatos.writeUTF("turno/"+ turno);
-			salidaDatos.writeUTF("fuerza/"+ fuerza);
+			// }
+
+			// turnoActivo=false;
+			salidaDatos.writeUTF("turno/" + turno);
+			salidaDatos.writeUTF("fuerza/" + fuerza);
+			salidaDatos.writeUTF("escogio/" + escogio);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -176,13 +182,8 @@ public int cicloJuego;
 		this.turnoActivo = turnoActivo;
 	}
 
-	public boolean isEmpezartiempo() {
-		return empezartiempo;
-	}
+	
 
-	public void setEmpezartiempo(boolean empezartiempo) {
-		this.empezartiempo = empezartiempo;
-	}
 
 	public ServerSocket getSs() {
 		return ss;
@@ -255,9 +256,17 @@ public int cicloJuego;
 	public void setRestartMins(int restartMins) {
 		this.restartMins = restartMins;
 	}
-	
-	
-	
+
+	public boolean isEmpezartiempo() {
+		return empezartiempo;
+	}
+
+	public void setEmpezartiempo(boolean empezartiempo) {
+		this.empezartiempo = empezartiempo;
+	}
+
+
+
 	
 	
 }
