@@ -117,6 +117,7 @@ public class Ejemplo extends PApplet {
 					if (comS.scrnSecs >= 10) {
 						comS.escogio = 0;
 						comS.cicloJuego++;
+						
 						comS.setTurnoActivo(true);
 						comS.restartSecs = comS.actualSecs; // stores elapsed
 															// SECONDS
@@ -124,7 +125,7 @@ public class Ejemplo extends PApplet {
 						comS.restartMins = comS.actualMins; // stores elapsed
 															// MINUTES
 						comS.scrnMins = comS.startMin; // restart screen timer
-
+						
 					}
 
 				} else {
@@ -137,6 +138,7 @@ public class Ejemplo extends PApplet {
 				if (comS.scrnSecs >= 10) {
 					comS.escogio = 0;
 					comS.cicloJuego++;
+					comS.enviar("TIMEITSOVER");
 					comS.setTurnoActivo(true);
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
@@ -144,7 +146,22 @@ public class Ejemplo extends PApplet {
 					comS.restartMins = comS.actualMins; // stores elapsed
 														// MINUTES
 					comS.scrnMins = comS.startMin; // restart screen timer
-
+					
+				}
+			}
+			if (comS.cicloJuego == 2) {
+				if (comS.scrnSecs >= 10) {
+					comS.escogio = 0;
+					comS.cicloJuego++;
+					// comS.enviar("TIMEITSOVER");
+					comS.setTurnoActivo(true);
+					comS.restartSecs = comS.actualSecs; // stores elapsed
+														// SECONDS
+					comS.scrnSecs = comS.startSec; // restart screen timer
+					comS.restartMins = comS.actualMins; // stores elapsed
+														// MINUTES
+					comS.scrnMins = comS.startMin; // restart screen timer
+				
 				}
 			}
 
@@ -520,6 +537,7 @@ public class Ejemplo extends PApplet {
 
 			case 1:
 
+				// SELECIONAR INTENCION DE TIRAR O CEDER
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
@@ -527,16 +545,16 @@ public class Ejemplo extends PApplet {
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
-					image(ceder, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
+					image(tirar, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
 				} else {
-					image(ceder, width / 2 - 300, height / 2, 203, 102);
+					image(tirar, width / 2 - 300, height / 2, 203, 102);
 				}
 
 				if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
-					image(tirar, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
+					image(ceder, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
 				} else {
-					image(tirar, width / 2 + 100, height / 2, 203, 102);
+					image(ceder, width / 2 + 100, height / 2, 203, 102);
 				}
 
 				image(principal, width / 2 - 110, height / 2 + 70);
@@ -556,21 +574,41 @@ public class Ejemplo extends PApplet {
 			case 2:
 
 				// MOSTRAR INTENCION DE JUEGO
-				
+
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
 				text("Intencion por parte de los jugadores", 250, 100);
-				text("Tú", 140, height / 2);
-				image(principal, 50, height / 2 + 70);
-				image(rope, 0, height / 2 + 250);
-				
+				text("Tú", 160, height / 2);
 
-				
+				// TU INTENCION
+				image(principal, 55, height / 2 + 70);
+				if (comS.intencion == 1) {
+					image(tirar, 80, height / 2, 208, 107);
+				} else if (comS.intencion == 2) {
+					image(ceder, 80, height / 2, 208, 107);
+				}
+
+				// INTENCION OTRO JUGADOR
+				text("Contrincante", 870, height / 2);
+				if (comS.intencionOtroJugador == 1) {
+
+					image(tirar, 900, height / 2, 208, 107);
+
+				} else if (comS.intencionOtroJugador == 2) {
+
+					image(ceder, 900, height / 2, 208, 107);
+				}
+
+				image(inicial2, 870, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+
 				break;
 
 			case 3:
-				text(comS.cicloJuego, 20, 30);
+
+				image(fondo, 0, 0);
+background(GRAY);
 				break;
 
 			case 4:

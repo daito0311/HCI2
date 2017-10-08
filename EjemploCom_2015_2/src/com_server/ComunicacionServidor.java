@@ -19,7 +19,7 @@ public class ComunicacionServidor extends Thread {
 	private int puerto;
 	ServerSocket ss;
 	private Socket cliente;
-	public int turno =3;
+	public int turno =0;
 	public int fuerza;
 	public int escogio;
 	private int turnoOtroJugador;
@@ -34,18 +34,19 @@ public class ComunicacionServidor extends Thread {
 	public int intencionOtroJugador;
 	public int eleccionOtroJugador;
 	
-	private boolean tiro, cedio;
+	public boolean tiro, cedio;
 
 	public int actualSecs;
 	public int actualMins;
 	public int startSec = 0;
 	public int startMin = 0;
 	public int scrnSecs;
+	public int scrnSecsOtroJugador;
 	public int scrnMins = 0;
 	public int restartSecs = 0;
 	public int restartMins = 0;
 
-	public int cicloJuego = 2;
+	public int cicloJuego = 0;
 
 	public ComunicacionServidor(int i) {
 		puerto = i;
@@ -130,6 +131,17 @@ public class ComunicacionServidor extends Thread {
 				System.out.println("FUERZA_server: " + fuerza + " " + "FUERZA_cliente: " + fuerzaOtroJugador);
 
 			}
+			
+			// IGUALAR LOS SEGUNDOS DE LOS DOS JUGADORES
+			if (mensaje.contains("Segundos")) {
+				String[] partes = mensaje.split("/");
+
+				scrnSecsOtroJugador = Integer.parseInt(partes[1]);
+
+				scrnSecs = scrnSecsOtroJugador;
+
+			}
+			
 
 			if (mensaje.contains("escogio")) {
 				String[] partes = mensaje.split("/");
@@ -155,17 +167,7 @@ public class ComunicacionServidor extends Thread {
 				intencionOtroJugador = Integer.parseInt(partes[1]);
 				System.out.println("Intencion_Cliente: "+intencion+" "+"Intencion_Server: "+intencionOtroJugador);
 
-				
-				if (intencionOtroJugador== 1) {
-					tiro = true;
-					cedio=false;
-				}else if (intencionOtroJugador== 2) {
-					
-					cedio = true;
-					tiro=false;
-				}{
-					
-				}
+			
 				
 				
 				}

@@ -29,7 +29,7 @@ public class ComunicacionCliente extends Thread {
 	private int turnoOtroJugador;
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
-	
+	private int scrnSecsOtroJugador;
 	private boolean tiro, cedio;
 	
 	
@@ -123,16 +123,7 @@ public class ComunicacionCliente extends Thread {
 				System.out.println("Intencion_Cliente: "+intencion+" "+"Intencion_Server: "+intencionOtroJugador);
 
 				
-				if (intencionOtroJugador== 1) {
-					tiro = true;
-					cedio=false;
-				}else if (intencionOtroJugador== 2) {
-					
-					cedio = true;
-					tiro=false;
-				}{
-					
-				}
+				
 				
 				
 				}
@@ -156,6 +147,15 @@ public class ComunicacionCliente extends Thread {
 
 				
 				}
+			
+			if (mensaje.contains("Segundos")) {
+				String[] partes = mensaje.split("/");
+
+				scrnSecsOtroJugador = Integer.parseInt(partes[1]);
+
+				
+
+			}
 			
 
 
@@ -204,6 +204,7 @@ public class ComunicacionCliente extends Thread {
 			salidaDatos.writeUTF("escogio/" + escogio);
 			salidaDatos.writeUTF("eleccion/" + eleccion);
 			salidaDatos.writeUTF("intencion/" + intencion);
+			salidaDatos.writeUTF("Segundos/" + scrnSecs);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
