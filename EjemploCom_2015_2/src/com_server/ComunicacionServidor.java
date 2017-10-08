@@ -19,7 +19,7 @@ public class ComunicacionServidor extends Thread {
 	private int puerto;
 	ServerSocket ss;
 	private Socket cliente;
-	public int turno =0;
+	public int turno =3;
 	public int fuerza;
 	public int escogio;
 	private int turnoOtroJugador;
@@ -45,7 +45,7 @@ public class ComunicacionServidor extends Thread {
 	public int restartSecs = 0;
 	public int restartMins = 0;
 
-	public int cicloJuego = 0;
+	public int cicloJuego = 2;
 
 	public ComunicacionServidor(int i) {
 		puerto = i;

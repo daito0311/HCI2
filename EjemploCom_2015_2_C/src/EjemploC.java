@@ -15,7 +15,7 @@ public class EjemploC extends PApplet {
 	private PImage inicio, fondo, instrucciones1, instrucciones2;
 	private PImage tirar, ceder, siguiente, jugar;
 	private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
-	private PImage rope, principal;
+	private PImage rope, principal, inicial2;
 
 	public void setup() {
 		textoTurno = "";
@@ -35,6 +35,7 @@ public class EjemploC extends PApplet {
 		ceder = loadImage("../imagenes/Boton Halar.png");
 
 		principal = loadImage("../imagenes/inicial.png");
+		inicial2 = loadImage("../imagenes/inicial2.png");
 		rope = loadImage("../imagenes/Lazo.png");
 
 		pj1 = loadImage("../imagenes/1.png");
@@ -119,8 +120,27 @@ public class EjemploC extends PApplet {
 				empezarTiempo = true;
 			}
 
-			if (empezarTiempo == true) {
+			if (comC.cicloJuego == 0) {
+				if (empezarTiempo == true) {
+					if (comC.scrnSecs >= 10) {
+						comC.cicloJuego++;
+						comC.setTurnoActivo(true);
+						comC.restartSecs = comC.actualSecs; // stores elapsed
+															// SECONDS
+						comC.scrnSecs = comC.startSec; // restart screen timer
+						comC.restartMins = comC.actualMins; // stores elapsed
+															// MINUTES
+						comC.scrnMins = comC.startMin; // restart screen timer
+
+					}
+
+				} else {
+					comC.setTurnoActivo(false);
+				}
+			}
+			if (comC.cicloJuego == 1) {
 				if (comC.scrnSecs >= 10) {
+					comC.escogio = 0;
 					comC.cicloJuego++;
 					comC.setTurnoActivo(true);
 					comC.restartSecs = comC.actualSecs; // stores elapsed
@@ -131,9 +151,6 @@ public class EjemploC extends PApplet {
 					comC.scrnMins = comC.startMin; // restart screen timer
 
 				}
-
-			} else {
-				comC.setTurnoActivo(false);
 			}
 
 			if (comC.actualSecs % 60 == 0) { // after 60 secs, restart second
@@ -557,12 +574,12 @@ public class EjemploC extends PApplet {
 			}
 
 			fill(0);
-			textSize(20);
+			textSize(30);
 
 			if (empezarTiempo == true) {
-				text(nf(comC.scrnMins, 2) + " : " + nf(comC.scrnSecs, 2), 20, 20);
+				text(nf(comC.scrnMins, 2) + " : " + nf(comC.scrnSecs, 2), 25, 30);
 			} else {
-				text(nf(00, 2) + " : " + nf(00, 2), 20, 20);
+				text(nf(00, 2) + " : " + nf(00, 2), 25, 30);
 			}
 
 			if (comC.cicloJuego >= 5) {
@@ -594,12 +611,14 @@ public class EjemploC extends PApplet {
 
 	public void mousePressed() {
 		// if (comC.isTurnoActivo()) {
-		comC.enviar("hola icesi soy cliente");
+
 		// }
 	}
 
 	@Override
 	public void mouseClicked() {
+
+		comC.enviar("hola icesi soy cliente");
 
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comC.turno == 0) {
 			comC.turno++;

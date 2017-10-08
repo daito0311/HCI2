@@ -16,7 +16,7 @@ public class Ejemplo extends PApplet {
 	private PImage inicio, fondo, instrucciones1, instrucciones2;
 	private PImage tirar, ceder, siguiente, jugar;
 	private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
-	private PImage rope, principal;
+	private PImage rope, principal, inicial2;
 
 	public void setup() {
 		textoTurno = "";
@@ -36,6 +36,7 @@ public class Ejemplo extends PApplet {
 		ceder = loadImage("../imagenes/Boton Halar.png");
 
 		principal = loadImage("../imagenes/inicial.png");
+		inicial2 = loadImage("../imagenes/inicial2.png");
 		rope = loadImage("../imagenes/Lazo.png");
 
 		pj1 = loadImage("../imagenes/1.png");
@@ -109,11 +110,30 @@ public class Ejemplo extends PApplet {
 				empezartiempo = true;
 			}
 
-			if (comS.cicloJuego==0) {
-				
-			
-			if (empezartiempo == true) {
+			if (comS.cicloJuego == 0) {
 
+				if (empezartiempo == true) {
+
+					if (comS.scrnSecs >= 10) {
+						comS.escogio = 0;
+						comS.cicloJuego++;
+						comS.setTurnoActivo(true);
+						comS.restartSecs = comS.actualSecs; // stores elapsed
+															// SECONDS
+						comS.scrnSecs = comS.startSec; // restart screen timer
+						comS.restartMins = comS.actualMins; // stores elapsed
+															// MINUTES
+						comS.scrnMins = comS.startMin; // restart screen timer
+
+					}
+
+				} else {
+					comS.setTurnoActivo(false);
+				}
+
+			}
+
+			if (comS.cicloJuego == 1) {
 				if (comS.scrnSecs >= 10) {
 					comS.escogio = 0;
 					comS.cicloJuego++;
@@ -126,14 +146,8 @@ public class Ejemplo extends PApplet {
 					comS.scrnMins = comS.startMin; // restart screen timer
 
 				}
-
-			} else {
-				comS.setTurnoActivo(false);
 			}
 
-			
-			}
-			
 			if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
 												// timer
 				comS.restartSecs = comS.actualSecs; // placeholder for this
@@ -527,7 +541,6 @@ public class Ejemplo extends PApplet {
 
 				image(principal, width / 2 - 110, height / 2 + 70);
 				image(rope, 0, height / 2 + 250);
-				
 
 				if (comS.isTurnoActivo() == false) {
 
@@ -538,13 +551,22 @@ public class Ejemplo extends PApplet {
 					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2 - 9);
 				}
 
-				
-
-				
 				break;
 
 			case 2:
-				text(comS.cicloJuego, 20, 30);
+
+				// MOSTRAR INTENCION DE JUEGO
+				
+				image(fondo, 0, 0);
+				textSize(40);
+				fill(0);
+				text("Intencion por parte de los jugadores", 250, 100);
+				text("Tú", 140, height / 2);
+				image(principal, 50, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+				
+
+				
 				break;
 
 			case 3:
@@ -558,15 +580,15 @@ public class Ejemplo extends PApplet {
 			}
 
 			fill(0);
-			textSize(20);
+			textSize(30);
 
 			if (empezartiempo == true) {
-				text(nf(comS.scrnMins, 2) + " : " + nf(comS.scrnSecs, 2), 20, 20);
+				text(nf(comS.scrnMins, 2) + " : " + nf(comS.scrnSecs, 2), 25, 30);
 			} else {
-				text(nf(00, 2) + " : " + nf(00, 2), 20, 20);
+				text(nf(00, 2) + " : " + nf(00, 2), 25, 30);
 			}
 
-			if (comS.cicloJuego >= 2) {
+			if (comS.cicloJuego >= 5) {
 				comS.cicloJuego = 0;
 			}
 
@@ -762,26 +784,24 @@ public class Ejemplo extends PApplet {
 			}
 		}
 
-		
-		/// CUANDO SE HACE CLICK SOBRE TIRAR O CEDER PARA MOSTRAR LA INTENCION AL JUGADOR CONTRARIO
-		
-		if (comS.cicloJuego == 1 && comS.isTurnoActivo() == true ) {
+		/// CUANDO SE HACE CLICK SOBRE TIRAR O CEDER PARA MOSTRAR LA INTENCION
+		/// AL JUGADOR CONTRARIO
+
+		if (comS.cicloJuego == 1 && comS.isTurnoActivo() == true) {
 			if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 					&& mouseY <= height / 2 + 102) {
-				
-				// TIRAR 
-				comS.intencion=1;
+
+				// TIRAR
+				comS.intencion = 1;
 				comS.setTurnoActivo(false);
-				
-			
-				
-			}else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+
+			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 					&& mouseY <= height / 2 + 102) {
-				
+
 				// CEDER
-				comS.intencion=2;
+				comS.intencion = 2;
 				comS.setTurnoActivo(false);
-				
+
 			}
 		}
 	}

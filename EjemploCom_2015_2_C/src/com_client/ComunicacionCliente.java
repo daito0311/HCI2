@@ -24,7 +24,7 @@ public class ComunicacionCliente extends Thread {
 	public boolean gotime = false;	
 	public int turno;
 	public int fuerza;
-	private int escogio;
+	public int escogio;
 	private int fuerzaOtroJugador;
 	private int turnoOtroJugador;
 	private int yaEscogioElOtroJugador;
