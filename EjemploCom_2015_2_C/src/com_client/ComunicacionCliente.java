@@ -30,6 +30,8 @@ public class ComunicacionCliente extends Thread {
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
 	
+	private boolean tiro, cedio;
+	
 	
 	public int cicloJuego;
 	
@@ -42,6 +44,12 @@ public class ComunicacionCliente extends Thread {
 	public int restartSecs = 0;
 	public int restartMins = 0;
 
+	public int intencion;
+	public int eleccion;
+	
+	public int intencionOtroJugador;
+	public int eleccionOtroJugador;
+	
 	public ComunicacionCliente(int i) {
 		puerto = i;
 	
@@ -64,6 +72,7 @@ public class ComunicacionCliente extends Thread {
 	 */
 
 	public void run() {
+		
 		while (true) {
 			recibir();
 			try {
@@ -79,6 +88,9 @@ public class ComunicacionCliente extends Thread {
 		InputStream entradaBytes;
 		DataInputStream entradaDatos;
 		try {
+			
+		servidor.getReceiveBufferSize();
+			
 			entradaBytes = servidor.getInputStream();
 			entradaDatos = new DataInputStream(entradaBytes);
 			String mensaje = entradaDatos.readUTF();
@@ -92,11 +104,39 @@ public class ComunicacionCliente extends Thread {
 				turnoOtroJugador = Integer.parseInt(partes[1]);
 				System.out.println("miTurno_cliente: "+turno+" "+"turno_Server: "+turnoOtroJugador);
 
-			
-					 
+			 
 				}
 				
 				
+			if (mensaje.contains("eleccion")) {
+				String[] partes = mensaje.split("/");
+
+				eleccionOtroJugador = Integer.parseInt(partes[1]);
+				System.out.println("Eleccion_Cliente: "+eleccion+" "+"Eleccion_Server: "+eleccionOtroJugador);
+
+				}
+
+			if (mensaje.contains("intencion")) {
+				String[] partes = mensaje.split("/");
+
+				intencionOtroJugador = Integer.parseInt(partes[1]);
+				System.out.println("Intencion_Cliente: "+intencion+" "+"Intencion_Server: "+intencionOtroJugador);
+
+				
+				if (intencionOtroJugador== 1) {
+					tiro = true;
+					cedio=false;
+				}else if (intencionOtroJugador== 2) {
+					
+					cedio = true;
+					tiro=false;
+				}{
+					
+				}
+				
+				
+				}
+			
 			
 			
 			if (mensaje.contains("fuerza")) {
@@ -145,7 +185,7 @@ public class ComunicacionCliente extends Thread {
 			if (gotime==false) {
 				
 			
-			if (turnoOtroJugador==2 && turno ==3) {
+			if ((turnoOtroJugador==3 || turnoOtroJugador==2 ) && turno ==3) {
 				turnoActivo=true;
 				gotime=true;
 			
@@ -162,6 +202,8 @@ public class ComunicacionCliente extends Thread {
 			salidaDatos.writeUTF("turno/" + turno);
 			salidaDatos.writeUTF("fuerza/" + fuerza);
 			salidaDatos.writeUTF("escogio/" + escogio);
+			salidaDatos.writeUTF("eleccion/" + eleccion);
+			salidaDatos.writeUTF("intencion/" + intencion);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

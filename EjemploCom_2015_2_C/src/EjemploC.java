@@ -15,6 +15,7 @@ public class EjemploC extends PApplet {
 	private PImage inicio, fondo, instrucciones1, instrucciones2;
 	private PImage tirar, ceder, siguiente, jugar;
 	private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
+	private PImage rope, principal;
 
 	public void setup() {
 		textoTurno = "";
@@ -32,6 +33,9 @@ public class EjemploC extends PApplet {
 		siguiente = loadImage("../imagenes/Boton Siguiente.png");
 		tirar = loadImage("../imagenes/Boton Ceder.png");
 		ceder = loadImage("../imagenes/Boton Halar.png");
+
+		principal = loadImage("../imagenes/inicial.png");
+		rope = loadImage("../imagenes/Lazo.png");
 
 		pj1 = loadImage("../imagenes/1.png");
 		pj2 = loadImage("../imagenes/2.png");
@@ -92,8 +96,6 @@ public class EjemploC extends PApplet {
 
 		case 3:
 
-			
-			
 			// AQUI VA EL JUEGO Y COMIENZAN YA LAS RONDAS DE JUEGO O EL CICLO
 
 			background(255);
@@ -104,7 +106,6 @@ public class EjemploC extends PApplet {
 			// Seleccionar una Intencion, Ver una intencion, Seleecionar una
 			// Accion, Ver la cuerda moverse en el rango.
 
-			
 			// DESACTIVAR EL TURNO UNA VEZ SELECCIONA UNA CARTA
 
 			// if (mousePressed && comC.isTurnoActivo() == true && empezarTiempo
@@ -114,10 +115,10 @@ public class EjemploC extends PApplet {
 
 			// --------------------------------------------------------------
 
-			if (comC.gotime==true) {
-				empezarTiempo=true;
+			if (comC.gotime == true) {
+				empezarTiempo = true;
 			}
-			
+
 			if (empezarTiempo == true) {
 				if (comC.scrnSecs >= 10) {
 					comC.cicloJuego++;
@@ -176,6 +177,7 @@ public class EjemploC extends PApplet {
 						text("PJ Tongue", 110, 80);
 						image(pj1, 95, 100, 131, 156);
 						text("Force = 8", 83 + 15, 285);
+
 					}
 
 				} else {
@@ -297,58 +299,205 @@ public class EjemploC extends PApplet {
 				}
 
 				// CARTA 5
-				if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 50 && mouseY <= 300) {
-					fill(255, 165, 0);
-					rect(930 + 7, 48, 205, 255, 15);
 
+				if (card5 == false) {
+					if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 50 && mouseY <= 300) {
+						fill(255, 165, 0);
+						rect(930 + 7, 48, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ Gum", 943 + 60, 78);
+						image(pj7, 975, 98, 133 + 5, 156 + 5);
+						text("Force = 2", 939 + 27 + 20, 287);
+
+					} else {
+						fill(255, 165, 0);
+						rect(930 + 10, 50, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ Gum", 945 + 60, 80);
+						image(pj7, 978, 100, 133, 156);
+						text("Force = 2", 939 + 30 + 20, 285);
+					}
 				} else {
 					fill(255, 165, 0);
+					rect(930 + 10, 50, 200, 250, 15);
+					fill(0);
+					textSize(22);
+					text("PJ Gum", 945 + 60, 80);
+					image(pj7, 978, 100, 133, 156);
+					text("Force = 2", 939 + 30 + 20, 285);
+					fill(0, 0, 0, 80);
 					rect(930 + 10, 50, 200, 250, 15);
 				}
 
 				// LINEA INFERIOR DE CARTAS
 
 				// CARTA 6
+				if (card6 == false) {
+					if (mouseX >= 60 && mouseX <= 260 && mouseY >= 350 && mouseY <= 600) {
+						fill(255, 165, 0);
+						rect(59 - 2, 348, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ Blue", 115 + 8, 348 + 30);
+						image(pj2, 93, 348 + 44 + 3, 141 + 3, 166);
+						text("Force = 4", 83 + 5 + 13, 348 + 240);
 
-				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 350 && mouseY <= 600) {
-					rect(59 - 2, 348, 205, 255, 15);
+					} else {
+						fill(255, 165, 0);
+						rect(50 + 10, 350, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ Blue", 115 + 10, 348 + 30);
+						image(pj2, 93, 348 + 50, 136, 161);
+						text("Force = 4", 83 + 13 + 10, 348 + 236);
+
+					}
 				} else {
+					fill(255, 165, 0);
 					rect(50 + 10, 350, 200, 250, 15);
-
+					fill(0);
+					textSize(22);
+					text("PJ Blue", 115 + 10, 348 + 30);
+					image(pj2, 93, 348 + 50, 136, 161);
+					text("Force = 4", 83 + 13 + 10, 348 + 236);
+					fill(0, 0, 0, 80);
+					rect(50 + 10, 350, 200, 250, 15);
 				}
 
 				// CARTA 7
-				if (mouseX >= 280 && mouseX <= 480 && mouseY >= 350 && mouseY <= 600) {
-					rect(279 - 2, 348, 205, 255, 15);
+				if (card7 == false) {
+					if (mouseX >= 280 && mouseX <= 480 && mouseY >= 350 && mouseY <= 600) {
+						fill(255, 165, 0);
+						rect(279 - 2, 348, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ Black", 348 - 10, 348 + 30);
+						image(pj3, 323, 348 + 47, 131 + 5, 156 + 5);
+						text("Force = 9", 308 + 5 + 13, 348 + 240);
+					} else {
+						fill(255, 165, 0);
+						rect(270 + 10, 350, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ Black", 348 - 10, 348 + 30);
+						image(pj3, 323, 348 + 47, 131, 156);
+						text("Force = 9", 308 + 5 + 13, 346 + 240);
+					}
 				} else {
+					fill(255, 165, 0);
 					rect(270 + 10, 350, 200, 250, 15);
+					fill(0);
+					textSize(22);
+					text("PJ Black", 348 - 10, 348 + 30);
+					image(pj3, 323, 348 + 47, 131, 156);
+					text("Force = 9", 308 + 5 + 13, 346 + 240);
+					fill(0, 0, 0, 80);
+					rect(270 + 10, 350, 200, 250, 15);
+
 				}
 
 				// CARTA 8
+				if (card8 == false) {
+					if (mouseX >= 500 && mouseX <= 700 && mouseY >= 350 && mouseY <= 600) {
+						fill(255, 165, 0);
+						rect(499 - 2, 348, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ Monster", 543, 348 + 30);
+						image(pj4, 528, 333 + 47, 137 + 5, 189 + 5);
+						text("Force = 12", 529 + 15, 348 + 240);
 
-				if (mouseX >= 500 && mouseX <= 700 && mouseY >= 350 && mouseY <= 600) {
+					} else {
+						fill(255, 165, 0);
+						rect(490 + 10, 350, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ Monster", 543, 348 + 30);
+						image(pj4, 528, 333 + 47, 137, 189);
+						text("Force = 12", 529 + 15, 346 + 240);
 
-					rect(499 - 2, 348, 205, 255, 15);
+					}
 				} else {
+					fill(255, 165, 0);
 					rect(490 + 10, 350, 200, 250, 15);
-
+					fill(0);
+					textSize(22);
+					text("PJ Monster", 543, 348 + 30);
+					image(pj4, 528, 333 + 47, 137, 189);
+					text("Force = 12", 529 + 15, 346 + 240);
+					fill(0, 0, 0, 80);
+					rect(490 + 10, 350, 200, 250, 15);
 				}
 
 				// CARTA 9
-				if (mouseX >= 720 && mouseX <= 920 && mouseY >= 350 && mouseY <= 600) {
-					rect(719 - 2, 348, 205, 255, 15);
+
+				if (card9 == false) {
+					if (mouseX >= 720 && mouseX <= 920 && mouseY >= 350 && mouseY <= 600) {
+						fill(255, 165, 0);
+						rect(719 - 2, 348, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ Flame", 743 + 30, 348 + 30);
+						image(pj5, 763, 333 + 47, 143 - 20, 214 - 20);
+						text("Force = 11", 714 + 30 + 15, 346 + 245);
+					} else {
+						fill(255, 165, 0);
+						rect(710 + 10, 350, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ Flame", 743 + 30, 348 + 30);
+						image(pj5, 763, 333 + 47, 138 - 25, 209 - 25);
+						text("Force = 11", 714 + 30 + 15, 346 + 240);
+					}
 				} else {
+					fill(255, 165, 0);
 					rect(710 + 10, 350, 200, 250, 15);
+					fill(0);
+					textSize(22);
+					text("PJ Flame", 743 + 30, 348 + 30);
+					image(pj5, 763, 333 + 47, 138 - 25, 209 - 25);
+					text("Force = 11", 714 + 30 + 15, 346 + 240);
+					fill(0, 0, 0, 80);
+					rect(710 + 10, 350, 200, 250, 15);
+
 				}
 
 				// CARTA 10
-				if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 350 && mouseY <= 600) {
-					rect(939 - 2, 348, 205, 255, 15);
+				if (card10 == false) {
+
+					if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 350 && mouseY <= 600) {
+						fill(255, 165, 0);
+						rect(939 - 2, 348, 205, 255, 15);
+						fill(0);
+						textSize(24);
+						text("PJ White", 943 + 57, 348 + 30);
+						image(pj8, 975, 348 + 47, 133 + 5, 156 + 5);
+						text("Force = 6", 939 + 27 + 20, 346 + 240);
+					} else {
+						fill(255, 165, 0);
+						rect(930 + 10, 350, 200, 250, 15);
+						fill(0);
+						textSize(22);
+						text("PJ White", 943 + 57, 348 + 30);
+						image(pj8, 975, 348 + 47, 133, 156);
+						text("Force = 6", 939 + 27 + 20, 346 + 240);
+					}
 				} else {
+					fill(255, 165, 0);
+					rect(930 + 10, 350, 200, 250, 15);
+					fill(0);
+					textSize(22);
+					text("PJ White", 943 + 57, 348 + 30);
+					image(pj8, 975, 348 + 47, 133, 156);
+					text("Force = 6", 939 + 27 + 20, 346 + 240);
+					fill(0, 0, 0, 80);
 					rect(930 + 10, 350, 200, 250, 15);
 				}
 
 				if (comC.isTurnoActivo() == false) {
+
 					fill(0, 0, 0, 95);
 					rect(0, 0, 1200, 800);
 					fill(255);
@@ -359,7 +508,38 @@ public class EjemploC extends PApplet {
 				break;
 
 			case 1:
-				text(comC.cicloJuego, 20, 30);
+
+				image(fondo, 0, 0);
+				textSize(40);
+				fill(0);
+				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+
+				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
+						&& mouseY <= height / 2 + 102) {
+					image(ceder, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
+				} else {
+					image(ceder, width / 2 - 300, height / 2, 203, 102);
+				}
+
+				if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+						&& mouseY <= height / 2 + 102) {
+					image(tirar, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
+				} else {
+					image(tirar, width / 2 + 100, height / 2, 203, 102);
+				}
+
+				image(principal, width / 2 - 110, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+
+				if (comC.isTurnoActivo() == false) {
+
+					fill(0, 0, 0, 95);
+					rect(0, 0, 1200, 800);
+					fill(255);
+					textSize(50);
+					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2 - 9);
+				}
+
 				break;
 
 			case 2:
@@ -413,15 +593,13 @@ public class EjemploC extends PApplet {
 	}
 
 	public void mousePressed() {
-		//if (comC.isTurnoActivo()) {
+		// if (comC.isTurnoActivo()) {
 		comC.enviar("hola icesi soy cliente");
-		//}
+		// }
 	}
 
 	@Override
 	public void mouseClicked() {
-		
-
 
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comC.turno == 0) {
 			comC.turno++;
@@ -432,8 +610,9 @@ public class EjemploC extends PApplet {
 			comC.turno++;
 		}
 
-		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true) {
-			// carta 1
+		// carta 1
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+
 			if (card1 == false) {
 				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 50 && mouseY <= 300) {
 					comC.fuerza += 8;
@@ -445,40 +624,161 @@ public class EjemploC extends PApplet {
 		}
 
 		// carta 2
-		if (card2 == false) {
-			if (mouseX >= 280 && mouseX <= 480 && mouseY >= 50 && mouseY <= 300) {
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card2 == false) {
+				if (mouseX >= 280 && mouseX <= 480 && mouseY >= 50 && mouseY <= 300) {
 
-				if (empezarTiempo == true) {
-					comC.fuerza += 15;
-					comC.setTurnoActivo(false);
-					card2 = true;
+					if (empezarTiempo == true) {
+						comC.fuerza += 15;
+						comC.setTurnoActivo(false);
+						card2 = true;
+
+					}
 				}
 			}
 		}
 		// carta 3
-		if (card3 == false) {
-			if (mouseX >= 500 && mouseX <= 700 && mouseY >= 50 && mouseY <= 300) {
 
-				if (empezarTiempo == true) {
-					comC.fuerza += 4;
-					comC.setTurnoActivo(false);
-					card3 = true;
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card3 == false) {
+				if (mouseX >= 500 && mouseX <= 700 && mouseY >= 50 && mouseY <= 300) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 4;
+							comC.setTurnoActivo(false);
+							card3 = true;
+						}
+					}
 				}
-
 			}
 		}
 
 		// carta 4
-
-		if (card4 == false) {
-			if (mouseX >= 720 && mouseX <= 920 && mouseY >= 50 && mouseY <= 300) {
-
-				if (empezarTiempo == true) {
-					comC.fuerza += 10;
-					comC.setTurnoActivo(false);
-					card4 = true;
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card4 == false) {
+				if (mouseX >= 720 && mouseX <= 920 && mouseY >= 50 && mouseY <= 300) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 10;
+							comC.setTurnoActivo(false);
+							card4 = true;
+						}
+					}
 				}
 			}
 		}
+
+		// carta 5
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card5 == false) {
+
+				if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 50 && mouseY <= 300) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 2;
+							comC.setTurnoActivo(false);
+							card5 = true;
+						}
+					}
+				}
+			}
+		}
+
+		// carta 6
+
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card6 == false) {
+
+				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 350 && mouseY <= 600) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 4;
+							comC.setTurnoActivo(false);
+							card6 = true;
+						}
+					}
+				}
+			}
+		}
+
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card7 == false) {
+
+				if (mouseX >= 280 && mouseX <= 480 && mouseY >= 350 && mouseY <= 600) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 9;
+							comC.setTurnoActivo(false);
+							card7 = true;
+						}
+					}
+				}
+			}
+		}
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card8 == false) {
+				if (mouseX >= 500 && mouseX <= 700 && mouseY >= 350 && mouseY <= 600) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 12;
+							comC.setTurnoActivo(false);
+							card8 = true;
+						}
+					}
+				}
+			}
+		}
+
+		// CARTA 9
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card9 == false) {
+				if (comC.isTurnoActivo() == true) {
+					if (mouseX >= 720 && mouseX <= 920 && mouseY >= 350 && mouseY <= 600) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 11;
+							comC.setTurnoActivo(false);
+							card9 = true;
+						}
+					}
+				}
+			}
+		}
+
+		// CARTA 10
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+			if (card10 == false) {
+				if (mouseX >= 940 && mouseX <= 1140 && mouseY >= 350 && mouseY <= 600) {
+					if (comC.isTurnoActivo() == true) {
+						if (empezarTiempo == true) {
+							comC.fuerza += 6;
+							comC.setTurnoActivo(false);
+							card10 = true;
+						}
+					}
+				}
+			}
+		}
+
+		/// CUANDO SE HACE CLICK SOBRE TIRAR O CEDER PARA MOSTRAR LA INTENCION
+		/// AL JUGADOR CONTRARIO
+
+		if (comC.cicloJuego == 1 && comC.isTurnoActivo() == true) {
+			if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
+					&& mouseY <= height / 2 + 102) {
+
+				// TIRAR
+				comC.intencion = 1;
+				comC.setTurnoActivo(false);
+
+			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+					&& mouseY <= height / 2 + 102) {
+
+				// CEDER
+				comC.intencion = 2;
+				comC.setTurnoActivo(false);
+
+			}
+		}
+
 	}
 }

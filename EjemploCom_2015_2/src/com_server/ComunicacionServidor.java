@@ -19,15 +19,22 @@ public class ComunicacionServidor extends Thread {
 	private int puerto;
 	ServerSocket ss;
 	private Socket cliente;
-	public int turno;
+	public int turno =0;
 	public int fuerza;
-	private int escogio;
+	public int escogio;
 	private int turnoOtroJugador;
 	private int fuerzaOtroJugador;
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
 	public boolean gotime;
 	
+	public int intencion;
+	public int eleccion;
+	
+	public int intencionOtroJugador;
+	public int eleccionOtroJugador;
+	
+	private boolean tiro, cedio;
 
 	public int actualSecs;
 	public int actualMins;
@@ -38,7 +45,7 @@ public class ComunicacionServidor extends Thread {
 	public int restartSecs = 0;
 	public int restartMins = 0;
 
-	public int cicloJuego;
+	public int cicloJuego = 0;
 
 	public ComunicacionServidor(int i) {
 		puerto = i;
@@ -50,6 +57,7 @@ public class ComunicacionServidor extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		start();
 	}
 
@@ -131,6 +139,37 @@ public class ComunicacionServidor extends Thread {
 				System.out.println("Server_YaEscogio " + escogio);
 
 			}
+			
+			
+			if (mensaje.contains("eleccion")) {
+				String[] partes = mensaje.split("/");
+
+				eleccionOtroJugador = Integer.parseInt(partes[1]);
+				System.out.println("Eleccion_Cliente: "+eleccion+" "+"Eleccion_Server: "+eleccionOtroJugador);
+
+				}
+
+			if (mensaje.contains("intencion")) {
+				String[] partes = mensaje.split("/");
+
+				intencionOtroJugador = Integer.parseInt(partes[1]);
+				System.out.println("Intencion_Cliente: "+intencion+" "+"Intencion_Server: "+intencionOtroJugador);
+
+				
+				if (intencionOtroJugador== 1) {
+					tiro = true;
+					cedio=false;
+				}else if (intencionOtroJugador== 2) {
+					
+					cedio = true;
+					tiro=false;
+				}{
+					
+				}
+				
+				
+				}
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -162,13 +201,15 @@ public class ComunicacionServidor extends Thread {
 			salidaDatos.writeUTF("turno/" + turno);
 			salidaDatos.writeUTF("fuerza/" + fuerza);
 			salidaDatos.writeUTF("escogio/" + escogio);
+			salidaDatos.writeUTF("eleccion/" + eleccion);
+			salidaDatos.writeUTF("intencion/" + intencion);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
+
 
 	public int getTurno() {
 		return turno;
