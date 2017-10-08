@@ -117,7 +117,7 @@ public class Ejemplo extends PApplet {
 					if (comS.scrnSecs >= 10) {
 						comS.escogio = 0;
 						comS.cicloJuego++;
-						
+
 						comS.setTurnoActivo(true);
 						comS.restartSecs = comS.actualSecs; // stores elapsed
 															// SECONDS
@@ -125,7 +125,7 @@ public class Ejemplo extends PApplet {
 						comS.restartMins = comS.actualMins; // stores elapsed
 															// MINUTES
 						comS.scrnMins = comS.startMin; // restart screen timer
-						
+
 					}
 
 				} else {
@@ -146,7 +146,7 @@ public class Ejemplo extends PApplet {
 					comS.restartMins = comS.actualMins; // stores elapsed
 														// MINUTES
 					comS.scrnMins = comS.startMin; // restart screen timer
-					
+
 				}
 			}
 			if (comS.cicloJuego == 2) {
@@ -161,7 +161,23 @@ public class Ejemplo extends PApplet {
 					comS.restartMins = comS.actualMins; // stores elapsed
 														// MINUTES
 					comS.scrnMins = comS.startMin; // restart screen timer
-				
+
+				}
+			}
+			
+			if (comS.cicloJuego == 3) {
+				if (comS.scrnSecs >= 10) {
+					comS.escogio = 0;
+					comS.cicloJuego++;
+					 comS.enviar("TIMEITSOVER");
+					comS.setTurnoActivo(true);
+					comS.restartSecs = comS.actualSecs; // stores elapsed
+														// SECONDS
+					comS.scrnSecs = comS.startSec; // restart screen timer
+					comS.restartMins = comS.actualMins; // stores elapsed
+														// MINUTES
+					comS.scrnMins = comS.startMin; // restart screen timer
+
 				}
 			}
 
@@ -545,16 +561,16 @@ public class Ejemplo extends PApplet {
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
-					image(tirar, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
+					image(ceder, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
 				} else {
-					image(tirar, width / 2 - 300, height / 2, 203, 102);
+					image(ceder, width / 2 - 300, height / 2, 203, 102);
 				}
 
 				if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
-					image(ceder, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
+					image(tirar, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
 				} else {
-					image(ceder, width / 2 + 100, height / 2, 203, 102);
+					image(tirar, width / 2 + 100, height / 2, 203, 102);
 				}
 
 				image(principal, width / 2 - 110, height / 2 + 70);
@@ -607,12 +623,75 @@ public class Ejemplo extends PApplet {
 
 			case 3:
 
+				comS.intencion = 0;
+				// SELECIONAR SU ACCION SI DESEA TIRAR O CEDER
+				
 				image(fondo, 0, 0);
-background(GRAY);
+				textSize(40);
+				fill(0);
+				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+
+				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
+						&& mouseY <= height / 2 + 102) {
+					image(ceder, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
+				} else {
+					image(ceder, width / 2 - 300, height / 2, 203, 102);
+				}
+
+				if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+						&& mouseY <= height / 2 + 102) {
+					image(tirar, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
+				} else {
+					image(tirar, width / 2 + 100, height / 2, 203, 102);
+				}
+
+				image(principal, width / 2 - 110, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+
+				if (comS.isTurnoActivo() == false) {
+
+					fill(0, 0, 0, 95);
+					rect(0, 0, 1200, 800);
+					fill(255);
+					textSize(50);
+					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2 - 9);
+				}
 				break;
 
 			case 4:
-				text(comS.cicloJuego, 20, 30);
+				
+				
+				// MOSTRAR ACCIONES DEL JUEGO 
+
+				image(fondo, 0, 0);
+				textSize(40);
+				fill(0);
+				text("Aciones por parte de los jugadores", 250, 100);
+				text("Tú", 160, height / 2);
+
+				// TU ACCION
+				image(principal, 55, height / 2 + 70);
+				if (comS.eleccion == 1) {
+					image(tirar, 80, height / 2, 208, 107);
+				} else if (comS.eleccion == 2) {
+					image(ceder, 80, height / 2, 208, 107);
+				}
+
+				// ACCION OTRO JUGADOR
+				text("Contrincante", 870, height / 2);
+				if (comS.eleccionOtroJugador == 1) {
+
+					image(tirar, 900, height / 2, 208, 107);
+
+				} else if (comS.eleccionOtroJugador == 2) {
+
+					image(ceder, 900, height / 2, 208, 107);
+				}
+
+				image(inicial2, 870, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+
+			
 				break;
 
 			}
@@ -830,17 +909,38 @@ background(GRAY);
 					&& mouseY <= height / 2 + 102) {
 
 				// TIRAR
-				comS.intencion = 1;
+				comS.intencion = 2;
 				comS.setTurnoActivo(false);
 
 			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 					&& mouseY <= height / 2 + 102) {
 
 				// CEDER
-				comS.intencion = 2;
+				comS.intencion = 1;
 				comS.setTurnoActivo(false);
 
 			}
 		}
+
+		/// CUANDO SE HACE CLICK SOBRE TIRAR O CEDER PARA ESCOGER
+
+		if (comS.cicloJuego == 3 && comS.isTurnoActivo() == true) {
+			if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
+					&& mouseY <= height / 2 + 102) {
+
+				// TIRAR
+				comS.eleccion = 2;
+				comS.setTurnoActivo(false);
+
+			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+					&& mouseY <= height / 2 + 102) {
+
+				// CEDER
+				comS.eleccion = 1;
+				comS.setTurnoActivo(false);
+
+			}
+		}
+
 	}
 }

@@ -131,7 +131,7 @@ public class EjemploC extends PApplet {
 						comC.restartMins = comC.actualMins; // stores elapsed
 															// MINUTES
 						comC.scrnMins = comC.startMin; // restart screen timer
-						
+
 					}
 
 				} else {
@@ -150,13 +150,13 @@ public class EjemploC extends PApplet {
 					comC.restartMins = comC.actualMins; // stores elapsed
 														// MINUTES
 					comC.scrnMins = comC.startMin; // restart screen timer
-					
+
 				}
 			}
 
 			if (comC.cicloJuego == 2) {
 				if (comC.scrnSecs >= 10) {
-					comC.escogio = 0;	
+					comC.escogio = 0;
 					comC.cicloJuego++;
 					// comC.enviar("TIMEITSOVER");
 					comC.setTurnoActivo(true);
@@ -166,9 +166,28 @@ public class EjemploC extends PApplet {
 					comC.restartMins = comC.actualMins; // stores elapsed
 														// MINUTES
 					comC.scrnMins = comC.startMin; // restart screen timer
-					
+
 				}
 			}
+			
+			
+			if (comC.cicloJuego == 3) {
+				if (comC.scrnSecs >= 10) {
+					comC.escogio = 0;
+					comC.cicloJuego++;
+					comC.enviar("TIMEITSOVER");
+					comC.setTurnoActivo(true);
+					comC.restartSecs = comC.actualSecs; // stores elapsed
+														// SECONDS
+					comC.scrnSecs = comC.startSec; // restart screen timer
+					comC.restartMins = comC.actualMins; // stores elapsed
+														// MINUTES
+					comC.scrnMins = comC.startMin; // restart screen timer
+
+				}
+			}
+			
+			
 
 			if (comC.actualSecs % 60 == 0) { // after 60 secs, restart second
 												// timer
@@ -550,19 +569,19 @@ public class EjemploC extends PApplet {
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
-					image(ceder, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
+					image(tirar, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
 				} else {
-					image(ceder, width / 2 - 300, height / 2, 203, 102);
+					image(tirar, width / 2 - 300, height / 2, 203, 102);
 				}
 
 				if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
-					image(tirar, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
+					image(ceder, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
 				} else {
-					image(tirar, width / 2 + 100, height / 2, 203, 102);
+					image(ceder, width / 2 + 100, height / 2, 203, 102);
 				}
 
-				image(principal, width / 2 - 110, height / 2 + 70);
+				image(inicial2, width / 2 - 110, height / 2 + 70);
 				image(rope, 0, height / 2 + 250);
 
 				if (comC.isTurnoActivo() == false) {
@@ -583,21 +602,21 @@ public class EjemploC extends PApplet {
 				textSize(40);
 				fill(0);
 				text("Intencion por parte de los jugadores", 250, 100);
-				text("Tú", 160, height / 2);
+				text("Tú", 930, height / 2);
 
 				// TU INTENCION
 				image(principal, 55, height / 2 + 70);
 				if (comC.intencion == 1) {
-					image(tirar, 80, height / 2, 208, 107);
+					image(tirar, 30, height / 2, 208, 107);
 				} else if (comC.intencion == 2) {
 					image(ceder, 80, height / 2, 208, 107);
 				}
 
 				// INTENCION OTRO JUGADOR
-				text("Contrincante", 870, height / 2);
+				text("Contrincante", 110, height / 2);
 				if (comC.intencionOtroJugador == 1) {
 
-					image(tirar, 900, height / 2, 208, 107);
+					image(tirar, 940, height / 2, 208, 107);
 
 				} else if (comC.intencionOtroJugador == 2) {
 
@@ -610,11 +629,73 @@ public class EjemploC extends PApplet {
 				break;
 
 			case 3:
-				text(comC.cicloJuego, 20, 30);
+
+				comC.intencion = 0;
+				// SELECIONAR SU ACCION SI DESEA TIRAR O CEDER
+				image(fondo, 0, 0);
+				textSize(40);
+				fill(0);
+				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+
+				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
+						&& mouseY <= height / 2 + 102) {
+					image(tirar, width / 2 - 300 - 2, height / 2, 208, 107 - 2);
+				} else {
+					image(tirar, width / 2 - 300, height / 2, 203, 102);
+				}
+
+				if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+						&& mouseY <= height / 2 + 102) {
+					image(ceder, width / 2 + 100 - 2, height / 2 - 2, 208, 107 - 2);
+				} else {
+					image(ceder, width / 2 + 100, height / 2, 203, 102);
+				}
+
+				image(inicial2, width / 2 - 110, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+
+				if (comC.isTurnoActivo() == false) {
+
+					fill(0, 0, 0, 95);
+					rect(0, 0, 1200, 800);
+					fill(255);
+					textSize(50);
+					text("ESPERANDO JUGADOR", width / 2 - 260, height / 2 - 9);
+				}
+
 				break;
 
 			case 4:
-				text(comC.cicloJuego, 20, 30);
+				// MOSTRAR ACCIONES DE JUEGO
+
+				image(fondo, 0, 0);
+				textSize(40);
+				fill(0);
+				text("Aciones por parte de los jugadores", 250, 100);
+				text("Tú", 930, height / 2);
+
+				// TU INTENCION
+				image(principal, 55, height / 2 + 70);
+				if (comC.eleccion == 1) {
+					image(tirar, 30, height / 2, 208, 107);
+				} else if (comC.eleccion == 2) {
+					image(ceder, 80, height / 2, 208, 107);
+				}
+
+				// INTENCION OTRO JUGADOR
+				text("Contrincante", 110, height / 2);
+				if (comC.eleccionOtroJugador == 1) {
+
+					image(tirar, 940, height / 2, 208, 107);
+
+				} else if (comC.eleccionOtroJugador == 2) {
+
+					image(ceder, 900, height / 2, 208, 107);
+				}
+
+				image(inicial2, 870, height / 2 + 70);
+				image(rope, 0, height / 2 + 250);
+
 				break;
 
 			}
@@ -832,14 +913,34 @@ public class EjemploC extends PApplet {
 					&& mouseY <= height / 2 + 102) {
 
 				// TIRAR
-				comC.intencion = 2;
+				comC.intencion = 1;
 				comC.setTurnoActivo(false);
 
 			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 					&& mouseY <= height / 2 + 102) {
 
 				// CEDER
-				comC.intencion = 1;
+				comC.intencion = 2;
+				comC.setTurnoActivo(false);
+
+			}
+		}
+
+		/// CUANDO SE HACE CLICK SOBRE TIRAR O CEDER PARA ESCOGER
+
+		if (comC.cicloJuego == 3 && comC.isTurnoActivo() == true) {
+			if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
+					&& mouseY <= height / 2 + 102) {
+
+				// TIRAR
+				comC.eleccion = 1;
+				comC.setTurnoActivo(false);
+
+			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
+					&& mouseY <= height / 2 + 102) {
+
+				// CEDER
+				comC.eleccion = 2;
 				comC.setTurnoActivo(false);
 
 			}
