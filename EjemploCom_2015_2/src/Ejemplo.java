@@ -48,17 +48,12 @@ public class Ejemplo extends PApplet {
 	}
 
 	public void draw() {
-		
-	
 
 		comS.actualSecs = millis() / 1000;
 		comS.actualMins = millis() / 1000 / 60;
 		comS.scrnSecs = comS.actualSecs - comS.restartSecs;
 		comS.scrnMins = comS.actualMins - comS.restartMins;
 
-	
-		
-		
 		switch (comS.turno) {
 		case 0:
 			background(255);
@@ -98,37 +93,21 @@ public class Ejemplo extends PApplet {
 
 		case 3:
 
-			
-			// INICIAR EL JUEGO 
-			
-				
-			
-			// AQUI VA EL JUEGO Y COMIENZAN YA LAS RONDAS DE JUEGO O EL CICLO
+			// INICIAR EL JUEGO
 
-			if (comS.getTurnoOtroJugador() ==3  && comS.isEmpezartiempo()==true) {
-				empezartiempo=true;
-			}
-			
-			background(255);
-
+			background(0, 255, 255);
 			text("Juego", (width / 2) - 60, 50);
 
 			// switch de ciclos los ciclos son: Seleccionar un Jugador,
 			// Seleccionar una Intencion, Ver una intencion, Seleecionar una
 			// Accion, Ver la cuerda moverse en el rango.
 
-			
+			if (comS.gotime==true) {
+				empezartiempo=true;
+			}
 
-			// DESACTIVAR EL TURNO UNA VEZ SELECCIONA UNA CARTA
+			if (empezartiempo == true) {
 
-			// if (mousePressed && comS.isTurnoActivo() == true && empezarTiempo
-			// == true) {
-
-			// }
-
-			// --------------------------------------------------------------
-
-			if (empezartiempo==true) {
 				if (comS.scrnSecs >= 10) {
 					comS.cicloJuego++;
 					comS.setTurnoActivo(true);
@@ -152,7 +131,6 @@ public class Ejemplo extends PApplet {
 				comS.scrnSecs = comS.startSec; // reset to zero
 
 			}
-
 			switch (comS.cicloJuego) {
 
 			case 0:
@@ -423,16 +401,16 @@ public class Ejemplo extends PApplet {
 	}
 
 	public void mousePressed() {
-		if (comS.isTurnoActivo()) {
-			comS.enviar("hola Icesi soy server");
-
-		}
-
+		//if (comC.isTurnoActivo()) {
+			
+		//}
 	}
 
 	@Override
 	public void mouseClicked() {
 
+		comS.enviar("hola Icesi soy server");
+		
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comS.turno == 0) {
 			comS.turno++;
 		}
@@ -440,14 +418,11 @@ public class Ejemplo extends PApplet {
 		if (mouseX >= 900 && mouseX <= 900 + 204 && mouseY >= 550 && mouseY <= 550 + 88 && comS.turno > 0
 				&& comS.turno < 3) {
 			comS.turno++;
-			
-		}
-		
-		
-		
 
+		}
+		// carta 1
 		if (comS.cicloJuego == 0 && comS.isTurnoActivo() == true && empezartiempo == true) {
-			// carta 1
+
 			if (card1 == false) {
 				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 50 && mouseY <= 300) {
 					comS.fuerza += 8;

@@ -8,44 +8,42 @@ public class EjemploC extends PApplet {
 
 	// TIEMPO
 
-		boolean empezarTiempo = false;
+	boolean empezarTiempo = false;
 
-		// IMAGENES
-		private boolean card1, card2, card3, card4, card5, card6, card7, card8, card9, card10;
-		private PImage inicio, fondo, instrucciones1, instrucciones2;
-		private PImage tirar, ceder, siguiente, jugar;
-		private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
+	// IMAGENES
+	private boolean card1, card2, card3, card4, card5, card6, card7, card8, card9, card10;
+	private PImage inicio, fondo, instrucciones1, instrucciones2;
+	private PImage tirar, ceder, siguiente, jugar;
+	private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
 
-	
-	
 	public void setup() {
 		textoTurno = "";
 		size(1200, 700);
 		comC = new ComunicacionCliente(5001);
-	
+
 		// CARGAR IMAGENES
 
-				inicio = loadImage("../imagenes/Inicio.png");
-				fondo = loadImage("../imagenes/Escenario.png");
-				instrucciones1 = loadImage("../imagenes/Instrucciones.png");
-				instrucciones2 = loadImage("../imagenes/Premios.png");
+		inicio = loadImage("../imagenes/Inicio.png");
+		fondo = loadImage("../imagenes/Escenario.png");
+		instrucciones1 = loadImage("../imagenes/Instrucciones.png");
+		instrucciones2 = loadImage("../imagenes/Premios.png");
 
-				jugar = loadImage("../imagenes/Boton Jugar.png");
-				siguiente = loadImage("../imagenes/Boton Siguiente.png");
-				tirar = loadImage("../imagenes/Boton Ceder.png");
-				ceder = loadImage("../imagenes/Boton Halar.png");
+		jugar = loadImage("../imagenes/Boton Jugar.png");
+		siguiente = loadImage("../imagenes/Boton Siguiente.png");
+		tirar = loadImage("../imagenes/Boton Ceder.png");
+		ceder = loadImage("../imagenes/Boton Halar.png");
 
-				pj1 = loadImage("../imagenes/1.png");
-				pj2 = loadImage("../imagenes/2.png");
-				pj3 = loadImage("../imagenes/3.png");
-				pj4 = loadImage("../imagenes/4.png");
-				pj5 = loadImage("../imagenes/5.png");
-				pj6 = loadImage("../imagenes/6.png");
-				pj7 = loadImage("../imagenes/7.png");
-				pj8 = loadImage("../imagenes/8.png");
-				pj9 = loadImage("../imagenes/9.png");
-				pj10 = loadImage("../imagenes/10.png");
-	
+		pj1 = loadImage("../imagenes/1.png");
+		pj2 = loadImage("../imagenes/2.png");
+		pj3 = loadImage("../imagenes/3.png");
+		pj4 = loadImage("../imagenes/4.png");
+		pj5 = loadImage("../imagenes/5.png");
+		pj6 = loadImage("../imagenes/6.png");
+		pj7 = loadImage("../imagenes/7.png");
+		pj8 = loadImage("../imagenes/8.png");
+		pj9 = loadImage("../imagenes/9.png");
+		pj10 = loadImage("../imagenes/10.png");
+
 	}
 
 	public void draw() {
@@ -94,11 +92,9 @@ public class EjemploC extends PApplet {
 
 		case 3:
 
+			
+			
 			// AQUI VA EL JUEGO Y COMIENZAN YA LAS RONDAS DE JUEGO O EL CICLO
-
-			
-			
-			
 
 			background(255);
 
@@ -108,10 +104,7 @@ public class EjemploC extends PApplet {
 			// Seleccionar una Intencion, Ver una intencion, Seleecionar una
 			// Accion, Ver la cuerda moverse en el rango.
 
-			if (comC.isEmpezartiempo() == true) {
-				empezarTiempo = true;
-			}
-
+			
 			// DESACTIVAR EL TURNO UNA VEZ SELECCIONA UNA CARTA
 
 			// if (mousePressed && comC.isTurnoActivo() == true && empezarTiempo
@@ -121,6 +114,10 @@ public class EjemploC extends PApplet {
 
 			// --------------------------------------------------------------
 
+			if (comC.gotime==true) {
+				empezarTiempo=true;
+			}
+			
 			if (empezarTiempo == true) {
 				if (comC.scrnSecs >= 10) {
 					comC.cicloJuego++;
@@ -416,16 +413,15 @@ public class EjemploC extends PApplet {
 	}
 
 	public void mousePressed() {
-		if (comC.isTurnoActivo()) {
-			
-			comC.enviar("hola icesi soy cliente");
-			
-			
-			
-		}
+		//if (comC.isTurnoActivo()) {
+		comC.enviar("hola icesi soy cliente");
+		//}
 	}
+
 	@Override
 	public void mouseClicked() {
+		
+
 
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comC.turno == 0) {
 			comC.turno++;
@@ -436,7 +432,7 @@ public class EjemploC extends PApplet {
 			comC.turno++;
 		}
 
-		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true && empezarTiempo == true) {
+		if (comC.cicloJuego == 0 && comC.isTurnoActivo() == true) {
 			// carta 1
 			if (card1 == false) {
 				if (mouseX >= 60 && mouseX <= 260 && mouseY >= 50 && mouseY <= 300) {

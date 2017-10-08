@@ -26,7 +26,8 @@ public class ComunicacionServidor extends Thread {
 	private int fuerzaOtroJugador;
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
-	private boolean empezartiempo;
+	public boolean gotime;
+	
 
 	public int actualSecs;
 	public int actualMins;
@@ -54,20 +55,28 @@ public class ComunicacionServidor extends Thread {
 
 	public void run() {
 		while (true) {
+		
 			recibir();
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		
 		}
 
 	}
 
+
 	public void recibir() {
+		
+		
+		
+		
 		InputStream entradaBytes;
 		DataInputStream entradaDatos;
 		try {
+			
 			entradaBytes = cliente.getInputStream();
 			entradaDatos = new DataInputStream(entradaBytes);
 			String mensaje = entradaDatos.readUTF();
@@ -85,23 +94,24 @@ public class ComunicacionServidor extends Thread {
 
 				// } else {
 				// turnoActivo = false;
-
-				if (empezartiempo==false) {
-					 if (turnoOtroJugador==3) {
-						 empezartiempo = true;
-						turnoActivo=true;
+				// }
+				
+			
+					if (gotime==false) {
 						
-						 restartSecs = actualSecs; 
-						    scrnSecs = startSec; 
+					
+					if (turnoOtroJugador==3 && turno ==3) {
+						turnoActivo=true;
+						gotime=true;
+						 restartSecs = actualSecs; //stores elapsed SECONDS
+						    scrnSecs = startSec; //restart screen timer  
 						    restartMins = actualMins; //stores elapsed MINUTES
 						    scrnMins = startMin; //restart screen timer
-						 //if mouse is pressed, restart timer
-					}else {
-						
+						 //if mouse is pressed, restart timer	
 					}
-				}
-					
-				// }
+				
+					}
+				
 			}
 
 			if (mensaje.contains("fuerza")) {
@@ -144,12 +154,8 @@ public class ComunicacionServidor extends Thread {
 
 			// if (turno < 3) {
 			// turno++;
-			if (turno==3) {
-				turno=3;
-			}
 		
-			
-			
+		
 			// }
 
 			// turnoActivo=false;
@@ -161,6 +167,8 @@ public class ComunicacionServidor extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	public int getTurno() {
 		return turno;
@@ -181,9 +189,6 @@ public class ComunicacionServidor extends Thread {
 	public void setTurnoActivo(boolean turnoActivo) {
 		this.turnoActivo = turnoActivo;
 	}
-
-	
-
 
 	public ServerSocket getSs() {
 		return ss;
@@ -257,16 +262,10 @@ public class ComunicacionServidor extends Thread {
 		this.restartMins = restartMins;
 	}
 
-	public boolean isEmpezartiempo() {
-		return empezartiempo;
-	}
-
-	public void setEmpezartiempo(boolean empezartiempo) {
-		this.empezartiempo = empezartiempo;
-	}
-
+	
+	
 
 
 	
-	
+
 }

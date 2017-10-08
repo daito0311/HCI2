@@ -10,6 +10,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import processing.opengl.FrameBuffer;
+
 public class ComunicacionCliente extends Thread {
 
 	/*
@@ -19,7 +21,7 @@ public class ComunicacionCliente extends Thread {
 	private int puerto;
 	ServerSocket ss;
 	private Socket servidor;
-	public boolean empezar = false;	
+	public boolean gotime = false;	
 	public int turno;
 	public int fuerza;
 	private int escogio;
@@ -28,7 +30,7 @@ public class ComunicacionCliente extends Thread {
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
 	
-	private boolean empezartiempo;
+	
 	public int cicloJuego;
 	
 	public int actualSecs;
@@ -52,6 +54,7 @@ public class ComunicacionCliente extends Thread {
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
+
 		start();
 	}
 
@@ -89,25 +92,12 @@ public class ComunicacionCliente extends Thread {
 				turnoOtroJugador = Integer.parseInt(partes[1]);
 				System.out.println("miTurno_cliente: "+turno+" "+"turno_Server: "+turnoOtroJugador);
 
-				
-
-				if (empezartiempo==false) {
-					 if (turnoOtroJugador==3) {
-						 empezartiempo = true;
-						turnoActivo=true;
-						
-						 restartSecs = actualSecs; 
-						    scrnSecs = startSec; 
-						    restartMins = actualMins; //stores elapsed MINUTES
-						    scrnMins = startMin; //restart screen timer
-						 //if mouse is pressed, restart timer
-					}else {
-						
-					}
+			
+					 
 				}
 				
 				
-			}
+			
 			
 			if (mensaje.contains("fuerza")) {
 				String[] partes = mensaje.split("/");
@@ -132,6 +122,7 @@ public class ComunicacionCliente extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**
@@ -148,8 +139,23 @@ public class ComunicacionCliente extends Thread {
 			System.out.println("mensaje enviado: " + msj);
 			salidaDatos.flush();
 			
-			if (turno==3) {
-				turno=3;
+			
+
+
+			if (gotime==false) {
+				
+			
+			if (turnoOtroJugador==2 && turno ==3) {
+				turnoActivo=true;
+				gotime=true;
+			
+				 restartSecs = actualSecs; //stores elapsed SECONDS
+				    scrnSecs = startSec; //restart screen timer  
+				    restartMins = actualMins; //stores elapsed MINUTES
+				    scrnMins = startMin; //restart screen timer
+				 //if mouse is pressed, restart timer	
+			}
+		
 			}
 			
 			//turnoActivo=false;
@@ -171,13 +177,7 @@ public class ComunicacionCliente extends Thread {
 
 	}
 
-	public boolean isEmpezar() {
-		return empezar;
-	}
-
-	public void setEmpezar(boolean empezar) {
-		this.empezar = empezar;
-	}
+	
 
 	public void setTurnoActivo(boolean turnoActivo) {
 		this.turnoActivo = turnoActivo;
@@ -191,15 +191,7 @@ public class ComunicacionCliente extends Thread {
 		this.turnoOtroJugador = turnoOtroJugador;
 	}
 
-	public boolean isEmpezartiempo() {
-		return empezartiempo;
-	}
 
-	public void setEmpezartiempo(boolean empezartiempo) {
-		this.empezartiempo = empezartiempo;
-	}
-	
-	
 	
 	
 	
