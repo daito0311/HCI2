@@ -21,13 +21,12 @@ public class ComunicacionServidor extends Thread {
 	private Socket cliente;
 	public int turno = 0;
 	public int fuerza;
-	public int escogio;
 	private int turnoOtroJugador;
 	public int fuerzaOtroJugador;
-	private int yaEscogioElOtroJugador;
+
 	private boolean turnoActivo;
 	public boolean gotime;
-
+	public int CicloGameOtroPlayer;
 	public int posMono = 3;
 
 	public int intencion;
@@ -41,12 +40,11 @@ public class ComunicacionServidor extends Thread {
 	public int actualSecs;
 	public int actualMins;
 	public int startSec = 0;
-	
+
 	public int scrnSecs;
 	public int scrnSecsOtroJugador;
-	
+
 	public int restartSecs = 0;
-	
 
 	public int cicloJuego = 0;
 
@@ -102,12 +100,11 @@ public class ComunicacionServidor extends Thread {
 				// } else {
 				// turnoActivo = false;
 				// }
-				
-				if (turnoOtroJugador==6) {
-					cicloJuego=7;
-					
+
+				if (turnoOtroJugador == 6) {
+					cicloJuego = 7;
+
 				}
-				
 
 				if (gotime == false) {
 
@@ -116,8 +113,7 @@ public class ComunicacionServidor extends Thread {
 						gotime = true;
 						restartSecs = actualSecs; // stores elapsed SECONDS
 						scrnSecs = startSec; // restart screen timer
-						
-						
+
 					}
 
 				}
@@ -133,24 +129,23 @@ public class ComunicacionServidor extends Thread {
 
 			}
 
+			// if (mensaje.contains("ciclogame")) {
+			// String[] partes = mensaje.split("/");
+
+			// CicloGameOtroPlayer = Integer.parseInt(partes[1]);
+
+			// System.out.println("CICLO_server: " + cicloJuego + " " +
+			// "CICLO_cliente: " + fuerzaOtroJugador);
+
+			// }
+
 			// IGUALAR LOS SEGUNDOS DE LOS DOS JUGADORES
-			if (mensaje.contains("Segundos")) {
-				String[] partes = mensaje.split("/");
+			// if (mensaje.contains("Segundos")) {
+			// String[] partes = mensaje.split("/");
 
-				scrnSecsOtroJugador = Integer.parseInt(partes[1]);
+			// scrnSecsOtroJugador = Integer.parseInt(partes[1]);
 
-				scrnSecs = scrnSecsOtroJugador;
-
-			}
-
-			if (mensaje.contains("escogio")) {
-				String[] partes = mensaje.split("/");
-
-				yaEscogioElOtroJugador = Integer.parseInt(partes[1]);
-
-				System.out.println("Server_YaEscogio " + escogio);
-
-			}
+			// }
 
 			if (mensaje.contains("eleccion")) {
 				String[] partes = mensaje.split("/");
@@ -158,7 +153,6 @@ public class ComunicacionServidor extends Thread {
 				eleccionOtroJugador = Integer.parseInt(partes[1]);
 				System.out.println("Eleccion_Cliente: " + eleccion + " " + "Eleccion_Server: " + eleccionOtroJugador);
 
-				
 			}
 
 			if (mensaje.contains("intencion")) {
@@ -192,15 +186,16 @@ public class ComunicacionServidor extends Thread {
 
 			// if (turno < 3) {
 			// turno++;
-       scrnSecs= scrnSecsOtroJugador;
+
+			scrnSecs = scrnSecsOtroJugador;
 			// }
 
 			// turnoActivo=false;
 			salidaDatos.writeUTF("turno/" + turno);
 			salidaDatos.writeUTF("fuerza/" + fuerza);
-			salidaDatos.writeUTF("escogio/" + escogio);
 			salidaDatos.writeUTF("eleccion/" + eleccion);
 			salidaDatos.writeUTF("intencion/" + intencion);
+			salidaDatos.writeUTF("ciclogame/" + cicloJuego);
 			salidaDatos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -259,8 +254,6 @@ public class ComunicacionServidor extends Thread {
 		this.startSec = startSec;
 	}
 
-	
-
 	public int getScrnSecs() {
 		return scrnSecs;
 	}
@@ -269,8 +262,6 @@ public class ComunicacionServidor extends Thread {
 		this.scrnSecs = scrnSecs;
 	}
 
-	
-
 	public int getRestartSecs() {
 		return restartSecs;
 	}
@@ -278,7 +269,5 @@ public class ComunicacionServidor extends Thread {
 	public void setRestartSecs(int restartSecs) {
 		this.restartSecs = restartSecs;
 	}
-
-	
 
 }

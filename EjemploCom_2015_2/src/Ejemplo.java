@@ -61,14 +61,12 @@ public class Ejemplo extends PApplet {
 	public void draw() {
 
 		comS.actualSecs = millis() / 1000;
-		
-		// AQUI VA EL CAMBIO 
-		
-		
+
+		// AQUI VA EL CAMBIO
+
 		comS.scrnSecs = comS.actualSecs - comS.restartSecs;
-		
-		
-		//--------------------------------------------------
+
+		// --------------------------------------------------
 
 		switch (comS.turno) {
 		case 0:
@@ -117,28 +115,26 @@ public class Ejemplo extends PApplet {
 			// Seleccionar una Intencion, Ver una intencion, Seleecionar una
 			// Accion, Ver la cuerda moverse en el rango.
 
-			if (comS.gotime == true) {
-				empezartiempo = true;
+			if (rounds == 0) {
+				if (comS.gotime == true) {
+					empezartiempo = true;
+				}
 			}
 
 			if (comS.cicloJuego == 0) {
 
-				comS.intencion = 0;
-				comS.eleccion = 0;
-
 				if (empezartiempo == true) {
 
 					if (comS.scrnSecs >= 10) {
-						comS.escogio = 0;
-						comS.cicloJuego++;
 
+						comS.cicloJuego++;
+						comS.enviar("TIMEITSOVER");
 						comS.setTurnoActivo(true);
 						comS.restartSecs = comS.actualSecs; // stores elapsed
 															// SECONDS
 						comS.scrnSecs = comS.startSec; // restart screen timer
-						
-															// MINUTES
-					
+
+						// MINUTES
 
 					}
 
@@ -150,39 +146,34 @@ public class Ejemplo extends PApplet {
 
 			if (comS.cicloJuego == 1) {
 				if (comS.scrnSecs >= 10) {
-					comS.escogio = 0;
 					comS.cicloJuego++;
-					comS.enviar("TIMEITSOVER");
 					comS.setTurnoActivo(true);
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
-					
 
 				}
 			}
 			if (comS.cicloJuego == 2) {
 				if (comS.scrnSecs >= 10) {
-					comS.escogio = 0;
 					comS.cicloJuego++;
 					// comS.enviar("TIMEITSOVER");
 					comS.setTurnoActivo(true);
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
-					
 
 				}
 			}
 
 			if (comS.cicloJuego == 3) {
 				if (comS.scrnSecs >= 10) {
-					comS.escogio = 0;
+
 					comS.cicloJuego++;
 
 					// AMBOS TIRARON
 
-					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 1) {
+					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 2) {
 						if (comS.fuerza > comS.fuerzaOtroJugador) {
 							comS.posMono -= 1;
 
@@ -193,7 +184,7 @@ public class Ejemplo extends PApplet {
 
 					}
 					// SERVIDOR TIRO CLIENTE CEDIO
-					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 2) {
+					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 1) {
 						comS.posMono -= 1;
 
 					}
@@ -216,7 +207,6 @@ public class Ejemplo extends PApplet {
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 					// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
-				
 
 				}
 			}
@@ -225,29 +215,28 @@ public class Ejemplo extends PApplet {
 				if (comS.scrnSecs >= 10) {
 
 					rounds++;
-
+					comS.enviar("TIMEITSOVER");
 					System.out.println("ROUNDS SERVER " + rounds);
 
-					empezartiempo = true;
+					// comS.gotime = false;
 
-					comS.escogio = 0;
 					comS.cicloJuego++;
-					comS.enviar("TIMEITSOVER");
 
 					comS.restartSecs = comS.actualSecs; // stores elapsed
-														// SECONDS
+
 					comS.scrnSecs = comS.startSec; // restart screen timer
-				
+
 				}
 			}
 
-			if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
-												// timer
-				comS.restartSecs = comS.actualSecs; // placeholder for this
-													// second in time
-				comS.scrnSecs = comS.startSec; // reset to zero
+			// if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
+			// timer
+			// comS.restartSecs = comS.actualSecs; // placeholder for this
+			// second in time
+			// comS.scrnSecs = comS.startSec; // reset to zero
 
-			}
+			// }
+
 			switch (comS.cicloJuego) {
 
 			case 0:
@@ -683,7 +672,6 @@ public class Ejemplo extends PApplet {
 
 			case 3:
 
-				comS.intencion = 0;
 				// SELECIONAR SU ACCION SI DESEA TIRAR O CEDER
 
 				image(fondo, 0, 0);
@@ -720,7 +708,6 @@ public class Ejemplo extends PApplet {
 
 			case 4:
 
-				comS.intencion = 0;
 				// MOSTRAR ACCIONES DEL JUEGO
 
 				image(fondo, 0, 0);
@@ -800,13 +787,29 @@ public class Ejemplo extends PApplet {
 			textSize(30);
 
 			if (empezartiempo == true) {
-				text( nf(comS.scrnSecs, 2), 25, 30);
+				text(nf(comS.scrnSecs, 2), 25, 30);
 			} else {
-				text( nf(00, 2), 25, 30);
+				text(nf(00, 2), 25, 30);
 			}
 
-			if (comS.cicloJuego >= 5) {
+			if (comS.cicloJuego == 5) {
+
+				// AQUI SE REINICIAN TODAS LAS VARIABLES
+
+				comS.eleccion = 0;
+				comS.eleccionOtroJugador = 0;
+
+				empezartiempo = true;
+				comS.intencion = 0;
+				comS.intencionOtroJugador = 0;
+				comS.restartSecs = comS.actualSecs; // stores elapsed
+				// SECONDS
+				comS.scrnSecs = comS.startSec; // restart screen timer
+
 				comS.cicloJuego = 0;
+
+				// -------------------------------------------------------
+
 			}
 
 			// AQUIIII ACABA EL JUEGOOOO!!!
@@ -852,7 +855,7 @@ public class Ejemplo extends PApplet {
 	@Override
 	public void mouseClicked() {
 
-		if (comS.cicloJuego != 4) {
+		if (comS.cicloJuego != 4 || comS.cicloJuego != 2) {
 			comS.enviar("hola Icesi soy server");
 		}
 

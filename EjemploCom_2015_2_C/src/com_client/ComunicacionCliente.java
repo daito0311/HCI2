@@ -24,14 +24,14 @@ public class ComunicacionCliente extends Thread {
 	public boolean gotime = false;	
 	public int turno;
 	public int fuerza;
-	public int escogio;
+
 	public int fuerzaOtroJugador;
 	private int turnoOtroJugador;
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
 	private int scrnSecsOtroJugador;
 	private boolean tiro, cedio;
-	
+	public int cicloGameOtroPlayer;
 	
 	public int posMono=3;
 	
@@ -124,6 +124,15 @@ public class ComunicacionCliente extends Thread {
 				System.out.println("Eleccion_Cliente: "+eleccion+" "+"Eleccion_Server: "+eleccionOtroJugador);
 
 				}
+			
+			if (mensaje.contains("ciclogame")) {
+				String[] partes = mensaje.split("/");
+
+				cicloGameOtroPlayer = Integer.parseInt(partes[1]);
+				System.out.println("CICLOGAME_Cliente: "+cicloJuego+" "+"CicloGame_Server: "+cicloGameOtroPlayer);
+
+				}
+			
 
 			if (mensaje.contains("intencion")) {
 				String[] partes = mensaje.split("/");
@@ -147,24 +156,16 @@ public class ComunicacionCliente extends Thread {
 				
 			}
 			
-			if (mensaje.contains("escogio")) {
-				String[] partes = mensaje.split("/");
-
-				yaEscogioElOtroJugador = Integer.parseInt(partes[1]);
-
-				System.out.println("Cliente_YaEscogio " + escogio);
-
-				
-				}
 			
-			if (mensaje.contains("Segundos")) {
-				String[] partes = mensaje.split("/");
+			
+			//if (mensaje.contains("Segundos")) {
+				//String[] partes = mensaje.split("/");
 
-				scrnSecsOtroJugador = Integer.parseInt(partes[1]);
+				//scrnSecsOtroJugador = Integer.parseInt(partes[1]);
 
 				
 
-			}
+			//}
 			
 
 
@@ -208,12 +209,16 @@ public class ComunicacionCliente extends Thread {
 		
 			}
 			
+			
+			
+			
+			
 			//turnoActivo=false;
 			salidaDatos.writeUTF("turno/" + turno);
 			salidaDatos.writeUTF("fuerza/" + fuerza);
-			salidaDatos.writeUTF("escogio/" + escogio);
 			salidaDatos.writeUTF("eleccion/" + eleccion);
 			salidaDatos.writeUTF("intencion/" + intencion);
+			salidaDatos.writeUTF("ciclogame/" + cicloJuego);
 			salidaDatos.writeUTF("Segundos/" + scrnSecs);
 			salidaDatos.flush();
 		} catch (IOException e) {
