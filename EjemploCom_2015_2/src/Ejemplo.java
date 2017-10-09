@@ -115,20 +115,21 @@ public class Ejemplo extends PApplet {
 			// Seleccionar una Intencion, Ver una intencion, Seleecionar una
 			// Accion, Ver la cuerda moverse en el rango.
 
-			if (rounds == 0) {
-				if (comS.gotime == true) {
-					empezartiempo = true;
-				}
+			if (comS.gotime == true) {
+				empezartiempo = true;
 			}
 
 			if (comS.cicloJuego == 0) {
+
+				comS.intencion = 0;
+				comS.eleccion = 0;
 
 				if (empezartiempo == true) {
 
 					if (comS.scrnSecs >= 10) {
 
 						comS.cicloJuego++;
-						comS.enviar("TIMEITSOVER");
+
 						comS.setTurnoActivo(true);
 						comS.restartSecs = comS.actualSecs; // stores elapsed
 															// SECONDS
@@ -146,7 +147,9 @@ public class Ejemplo extends PApplet {
 
 			if (comS.cicloJuego == 1) {
 				if (comS.scrnSecs >= 10) {
+
 					comS.cicloJuego++;
+					comS.enviar("TIMEITSOVER");
 					comS.setTurnoActivo(true);
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
@@ -156,6 +159,7 @@ public class Ejemplo extends PApplet {
 			}
 			if (comS.cicloJuego == 2) {
 				if (comS.scrnSecs >= 10) {
+
 					comS.cicloJuego++;
 					// comS.enviar("TIMEITSOVER");
 					comS.setTurnoActivo(true);
@@ -198,9 +202,15 @@ public class Ejemplo extends PApplet {
 						comS.posMono += 1;
 
 					}
+					// SERVIDOR NO HIZO NADA CLIENTE TIRO
+					if (comS.eleccion == 0 && comS.eleccionOtroJugador == 2) {
+						comS.posMono += 1;
+
+					}
+
 					// AMBOS CEDIERON NO PASA NADA
 					if (comS.eleccion == 1 && comS.eleccionOtroJugador == 1) {
-
+						comS.posMono = comS.posMono;
 					}
 
 					comS.setTurnoActivo(true);
@@ -215,28 +225,28 @@ public class Ejemplo extends PApplet {
 				if (comS.scrnSecs >= 10) {
 
 					rounds++;
-					comS.enviar("TIMEITSOVER");
+
 					System.out.println("ROUNDS SERVER " + rounds);
 
-					// comS.gotime = false;
+					comS.gotime = false;
 
+					// comS.enviar("TIMEITSOVER");
 					comS.cicloJuego++;
 
 					comS.restartSecs = comS.actualSecs; // stores elapsed
-
+														// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
 
 				}
 			}
 
-			// if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
-			// timer
-			// comS.restartSecs = comS.actualSecs; // placeholder for this
-			// second in time
-			// comS.scrnSecs = comS.startSec; // reset to zero
+			if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
+												// timer
+				comS.restartSecs = comS.actualSecs; // placeholder for this
+													// second in time
+				comS.scrnSecs = comS.startSec; // reset to zero
 
-			// }
-
+			}
 			switch (comS.cicloJuego) {
 
 			case 0:
@@ -672,6 +682,7 @@ public class Ejemplo extends PApplet {
 
 			case 3:
 
+				comS.intencion = 0;
 				// SELECIONAR SU ACCION SI DESEA TIRAR O CEDER
 
 				image(fondo, 0, 0);
@@ -708,6 +719,7 @@ public class Ejemplo extends PApplet {
 
 			case 4:
 
+				comS.intencion = 0;
 				// MOSTRAR ACCIONES DEL JUEGO
 
 				image(fondo, 0, 0);
@@ -798,8 +810,8 @@ public class Ejemplo extends PApplet {
 
 				comS.eleccion = 0;
 				comS.eleccionOtroJugador = 0;
-
-				empezartiempo = true;
+				comS.gotime = false;
+				empezartiempo = false;
 				comS.intencion = 0;
 				comS.intencionOtroJugador = 0;
 				comS.restartSecs = comS.actualSecs; // stores elapsed

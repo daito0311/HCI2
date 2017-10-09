@@ -23,7 +23,6 @@ public class ComunicacionServidor extends Thread {
 	public int fuerza;
 	private int turnoOtroJugador;
 	public int fuerzaOtroJugador;
-
 	private boolean turnoActivo;
 	public boolean gotime;
 	public int CicloGameOtroPlayer;
@@ -105,6 +104,8 @@ public class ComunicacionServidor extends Thread {
 					cicloJuego = 7;
 
 				}
+				
+			
 
 				if (gotime == false) {
 
@@ -187,7 +188,7 @@ public class ComunicacionServidor extends Thread {
 			// if (turno < 3) {
 			// turno++;
 
-			scrnSecs = scrnSecsOtroJugador;
+			//scrnSecs = scrnSecsOtroJugador;
 			// }
 
 			// turnoActivo=false;

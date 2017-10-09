@@ -24,7 +24,6 @@ public class ComunicacionCliente extends Thread {
 	public boolean gotime = false;	
 	public int turno;
 	public int fuerza;
-
 	public int fuerzaOtroJugador;
 	private int turnoOtroJugador;
 	private int yaEscogioElOtroJugador;
@@ -158,14 +157,15 @@ public class ComunicacionCliente extends Thread {
 			
 			
 			
-			//if (mensaje.contains("Segundos")) {
-				//String[] partes = mensaje.split("/");
+			if (mensaje.contains("Segundos")) {
+				String[] partes = mensaje.split("/");
 
-				//scrnSecsOtroJugador = Integer.parseInt(partes[1]);
+				scrnSecsOtroJugador = Integer.parseInt(partes[1]);
 
+			
 				
 
-			//}
+			}
 			
 
 
