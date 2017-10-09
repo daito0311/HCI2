@@ -16,7 +16,9 @@ public class Ejemplo extends PApplet {
 	private PImage inicio, fondo, instrucciones1, instrucciones2;
 	private PImage tirar, ceder, siguiente, jugar;
 	private PImage pj1, pj2, pj3, pj4, pj5, pj6, pj7, pj8, pj9, pj10;
-	private PImage rope, principal, inicial2;
+	private PImage rope, principal, inicial2, ganar, perder;
+	private PImage nudo;
+	private int rounds;
 
 	public void setup() {
 		textoTurno = "";
@@ -29,6 +31,10 @@ public class Ejemplo extends PApplet {
 		fondo = loadImage("../imagenes/Escenario.png");
 		instrucciones1 = loadImage("../imagenes/Instrucciones.png");
 		instrucciones2 = loadImage("../imagenes/Premios.png");
+
+		nudo = loadImage("../imagenes/nudo.png");
+		ganar = loadImage("../imagenes/Ganaste.png");
+		perder = loadImage("../imagenes/Perdiste.png");
 
 		jugar = loadImage("../imagenes/Boton Jugar.png");
 		siguiente = loadImage("../imagenes/Boton Siguiente.png");
@@ -55,9 +61,14 @@ public class Ejemplo extends PApplet {
 	public void draw() {
 
 		comS.actualSecs = millis() / 1000;
-		comS.actualMins = millis() / 1000 / 60;
+		
+		// AQUI VA EL CAMBIO 
+		
+		
 		comS.scrnSecs = comS.actualSecs - comS.restartSecs;
-		comS.scrnMins = comS.actualMins - comS.restartMins;
+		
+		
+		//--------------------------------------------------
 
 		switch (comS.turno) {
 		case 0:
@@ -112,6 +123,9 @@ public class Ejemplo extends PApplet {
 
 			if (comS.cicloJuego == 0) {
 
+				comS.intencion = 0;
+				comS.eleccion = 0;
+
 				if (empezartiempo == true) {
 
 					if (comS.scrnSecs >= 10) {
@@ -122,9 +136,9 @@ public class Ejemplo extends PApplet {
 						comS.restartSecs = comS.actualSecs; // stores elapsed
 															// SECONDS
 						comS.scrnSecs = comS.startSec; // restart screen timer
-						comS.restartMins = comS.actualMins; // stores elapsed
+						
 															// MINUTES
-						comS.scrnMins = comS.startMin; // restart screen timer
+					
 
 					}
 
@@ -143,9 +157,7 @@ public class Ejemplo extends PApplet {
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
-					comS.restartMins = comS.actualMins; // stores elapsed
-														// MINUTES
-					comS.scrnMins = comS.startMin; // restart screen timer
+					
 
 				}
 			}
@@ -158,26 +170,74 @@ public class Ejemplo extends PApplet {
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
-					comS.restartMins = comS.actualMins; // stores elapsed
-														// MINUTES
-					comS.scrnMins = comS.startMin; // restart screen timer
+					
 
 				}
 			}
-			
+
 			if (comS.cicloJuego == 3) {
 				if (comS.scrnSecs >= 10) {
 					comS.escogio = 0;
 					comS.cicloJuego++;
-					 comS.enviar("TIMEITSOVER");
+
+					// AMBOS TIRARON
+
+					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 1) {
+						if (comS.fuerza > comS.fuerzaOtroJugador) {
+							comS.posMono -= 1;
+
+						} else if (comS.fuerza < comS.fuerzaOtroJugador) {
+							comS.posMono += 1;
+
+						}
+
+					}
+					// SERVIDOR TIRO CLIENTE CEDIO
+					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 2) {
+						comS.posMono -= 1;
+
+					}
+					// SERVIDOR TIRO CLIENTE CEDIO o no tiro
+					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 0) {
+						comS.posMono -= 1;
+
+					}
+					// SERVIDOR CEDIO CLIENTE TIRO
+					if (comS.eleccion == 1 && comS.eleccionOtroJugador == 2) {
+						comS.posMono += 1;
+
+					}
+					// AMBOS CEDIERON NO PASA NADA
+					if (comS.eleccion == 1 && comS.eleccionOtroJugador == 1) {
+
+					}
+
 					comS.setTurnoActivo(true);
+					comS.restartSecs = comS.actualSecs; // stores elapsed
+					// SECONDS
+					comS.scrnSecs = comS.startSec; // restart screen timer
+				
+
+				}
+			}
+
+			if (comS.cicloJuego == 4) {
+				if (comS.scrnSecs >= 10) {
+
+					rounds++;
+
+					System.out.println("ROUNDS SERVER " + rounds);
+
+					empezartiempo = true;
+
+					comS.escogio = 0;
+					comS.cicloJuego++;
+					comS.enviar("TIMEITSOVER");
+
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
-					comS.restartMins = comS.actualMins; // stores elapsed
-														// MINUTES
-					comS.scrnMins = comS.startMin; // restart screen timer
-
+				
 				}
 			}
 
@@ -625,7 +685,7 @@ public class Ejemplo extends PApplet {
 
 				comS.intencion = 0;
 				// SELECIONAR SU ACCION SI DESEA TIRAR O CEDER
-				
+
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
@@ -659,9 +719,9 @@ public class Ejemplo extends PApplet {
 				break;
 
 			case 4:
-				
-				
-				// MOSTRAR ACCIONES DEL JUEGO 
+
+				comS.intencion = 0;
+				// MOSTRAR ACCIONES DEL JUEGO
 
 				image(fondo, 0, 0);
 				textSize(40);
@@ -670,28 +730,68 @@ public class Ejemplo extends PApplet {
 				text("Tú", 160, height / 2);
 
 				// TU ACCION
-				image(principal, 55, height / 2 + 70);
-				if (comS.eleccion == 1) {
-					image(tirar, 80, height / 2, 208, 107);
-				} else if (comS.eleccion == 2) {
-					image(ceder, 80, height / 2, 208, 107);
-				}
 
 				// ACCION OTRO JUGADOR
 				text("Contrincante", 870, height / 2);
-				if (comS.eleccionOtroJugador == 1) {
-
-					image(tirar, 900, height / 2, 208, 107);
-
-				} else if (comS.eleccionOtroJugador == 2) {
-
-					image(ceder, 900, height / 2, 208, 107);
-				}
-
+				image(principal, 50, height / 2 + 70);
 				image(inicial2, 870, height / 2 + 70);
 				image(rope, 0, height / 2 + 250);
 
-			
+				strokeWeight(3);
+				fill(103, 191, 0);
+				rect(width / 2 - 50, height / 2 + 310, 100, 40);
+
+				fill(251, 176, 59);
+				rect(width / 2 - 50 - 100, height / 2 + 310, 100, 40);
+				rect(width / 2 - 50 - 200, height / 2 + 310, 100, 40);
+				rect(width / 2 - 50 + 100, height / 2 + 310, 100, 40);
+				rect(width / 2 - 50 + 200, height / 2 + 310, 100, 40);
+				/// Perdio
+				fill(255, 0, 0);
+				rect(width / 2 - 50 + 300, height / 2 + 310, 100, 40);
+				rect(width / 2 - 50 - 300, height / 2 + 310, 100, 40);
+
+				// MOÑO DEL JUEGO
+
+				switch (comS.posMono) {
+				case 0:
+					image(nudo, width / 2 - 50 - 300, height / 2 + 250);
+
+					comS.turno = 6;
+
+					System.out.println("SERVER GANO");
+
+					break;
+
+				case 1:
+					image(nudo, width / 2 - 50 - 200, height / 2 + 250);
+					break;
+
+				case 2:
+					image(nudo, width / 2 - 50 - 100, height / 2 + 250);
+					break;
+
+				case 3:
+					image(nudo, width / 2 - 50, height / 2 + 250);
+					break;
+
+				case 4:
+					image(nudo, width / 2 - 50 + 100, height / 2 + 250);
+					break;
+
+				case 5:
+					image(nudo, width / 2 - 50 + 200, height / 2 + 250);
+					break;
+
+				case 6:
+					image(nudo, width / 2 - 50 + 300, height / 2 + 250);
+					comS.turno = 7;
+
+					System.out.println("SERVER PERDIO");
+					break;
+
+				}
+
 				break;
 
 			}
@@ -700,9 +800,9 @@ public class Ejemplo extends PApplet {
 			textSize(30);
 
 			if (empezartiempo == true) {
-				text(nf(comS.scrnMins, 2) + " : " + nf(comS.scrnSecs, 2), 25, 30);
+				text( nf(comS.scrnSecs, 2), 25, 30);
 			} else {
-				text(nf(00, 2) + " : " + nf(00, 2), 25, 30);
+				text( nf(00, 2), 25, 30);
 			}
 
 			if (comS.cicloJuego >= 5) {
@@ -713,11 +813,22 @@ public class Ejemplo extends PApplet {
 
 			break;
 
-		case 4:
-			background(255, 0, 255);
-			text("Juego2", (width / 2) - 60, 50);
+		case 6:
+
+			// PANTALLA DE VICTORIA
+
+			image(ganar, 0, 0);
 
 			break;
+
+		case 7:
+
+			// PANTALLA DE VICTORIA
+
+			image(perder, 0, 0);
+
+			break;
+
 		}
 
 		// fill(0);
@@ -725,7 +836,7 @@ public class Ejemplo extends PApplet {
 		// text(textoTurno, 200, 200);
 		// text("Servidor", 200, 150);
 
-		if (comS.turno > 4) {
+		if (comS.turno == 5) {
 			comS.turno = 3;
 
 		}
@@ -741,7 +852,9 @@ public class Ejemplo extends PApplet {
 	@Override
 	public void mouseClicked() {
 
-		comS.enviar("hola Icesi soy server");
+		if (comS.cicloJuego != 4) {
+			comS.enviar("hola Icesi soy server");
+		}
 
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comS.turno == 0) {
 			comS.turno++;

@@ -19,32 +19,34 @@ public class ComunicacionServidor extends Thread {
 	private int puerto;
 	ServerSocket ss;
 	private Socket cliente;
-	public int turno =0;
+	public int turno = 0;
 	public int fuerza;
 	public int escogio;
 	private int turnoOtroJugador;
-	private int fuerzaOtroJugador;
+	public int fuerzaOtroJugador;
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
 	public boolean gotime;
-	
+
+	public int posMono = 3;
+
 	public int intencion;
 	public int eleccion;
-	
+
 	public int intencionOtroJugador;
 	public int eleccionOtroJugador;
-	
+
 	public boolean tiro, cedio;
 
 	public int actualSecs;
 	public int actualMins;
 	public int startSec = 0;
-	public int startMin = 0;
+	
 	public int scrnSecs;
 	public int scrnSecsOtroJugador;
-	public int scrnMins = 0;
+	
 	public int restartSecs = 0;
-	public int restartMins = 0;
+	
 
 	public int cicloJuego = 0;
 
@@ -58,34 +60,30 @@ public class ComunicacionServidor extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		start();
 	}
 
 	public void run() {
 		while (true) {
-		
+
 			recibir();
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		
+
 		}
 
 	}
 
-
 	public void recibir() {
-		
-		
-		
-		
+
 		InputStream entradaBytes;
 		DataInputStream entradaDatos;
 		try {
-			
+
 			entradaBytes = cliente.getInputStream();
 			entradaDatos = new DataInputStream(entradaBytes);
 			String mensaje = entradaDatos.readUTF();
@@ -105,22 +103,25 @@ public class ComunicacionServidor extends Thread {
 				// turnoActivo = false;
 				// }
 				
-			
-					if (gotime==false) {
-						
+				if (turnoOtroJugador==6) {
+					cicloJuego=7;
 					
-					if (turnoOtroJugador==3 && turno ==3) {
-						turnoActivo=true;
-						gotime=true;
-						 restartSecs = actualSecs; //stores elapsed SECONDS
-						    scrnSecs = startSec; //restart screen timer  
-						    restartMins = actualMins; //stores elapsed MINUTES
-						    scrnMins = startMin; //restart screen timer
-						 //if mouse is pressed, restart timer	
-					}
+				}
 				
+
+				if (gotime == false) {
+
+					if (turnoOtroJugador == 3 && turno == 3) {
+						turnoActivo = true;
+						gotime = true;
+						restartSecs = actualSecs; // stores elapsed SECONDS
+						scrnSecs = startSec; // restart screen timer
+						
+						
 					}
-				
+
+				}
+
 			}
 
 			if (mensaje.contains("fuerza")) {
@@ -131,7 +132,7 @@ public class ComunicacionServidor extends Thread {
 				System.out.println("FUERZA_server: " + fuerza + " " + "FUERZA_cliente: " + fuerzaOtroJugador);
 
 			}
-			
+
 			// IGUALAR LOS SEGUNDOS DE LOS DOS JUGADORES
 			if (mensaje.contains("Segundos")) {
 				String[] partes = mensaje.split("/");
@@ -141,7 +142,6 @@ public class ComunicacionServidor extends Thread {
 				scrnSecs = scrnSecsOtroJugador;
 
 			}
-			
 
 			if (mensaje.contains("escogio")) {
 				String[] partes = mensaje.split("/");
@@ -151,27 +151,24 @@ public class ComunicacionServidor extends Thread {
 				System.out.println("Server_YaEscogio " + escogio);
 
 			}
-			
-			
+
 			if (mensaje.contains("eleccion")) {
 				String[] partes = mensaje.split("/");
 
 				eleccionOtroJugador = Integer.parseInt(partes[1]);
-				System.out.println("Eleccion_Cliente: "+eleccion+" "+"Eleccion_Server: "+eleccionOtroJugador);
+				System.out.println("Eleccion_Cliente: " + eleccion + " " + "Eleccion_Server: " + eleccionOtroJugador);
 
-				}
+				
+			}
 
 			if (mensaje.contains("intencion")) {
 				String[] partes = mensaje.split("/");
 
 				intencionOtroJugador = Integer.parseInt(partes[1]);
-				System.out.println("Intencion_Cliente: "+intencion+" "+"Intencion_Server: "+intencionOtroJugador);
+				System.out
+						.println("Intencion_Cliente: " + intencion + " " + "Intencion_Server: " + intencionOtroJugador);
 
-			
-				
-				
-				}
-			
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -195,8 +192,7 @@ public class ComunicacionServidor extends Thread {
 
 			// if (turno < 3) {
 			// turno++;
-		
-		
+       scrnSecs= scrnSecsOtroJugador;
 			// }
 
 			// turnoActivo=false;
@@ -210,8 +206,6 @@ public class ComunicacionServidor extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-
 
 	public int getTurno() {
 		return turno;
@@ -265,13 +259,7 @@ public class ComunicacionServidor extends Thread {
 		this.startSec = startSec;
 	}
 
-	public int getStartMin() {
-		return startMin;
-	}
-
-	public void setStartMin(int startMin) {
-		this.startMin = startMin;
-	}
+	
 
 	public int getScrnSecs() {
 		return scrnSecs;
@@ -281,13 +269,7 @@ public class ComunicacionServidor extends Thread {
 		this.scrnSecs = scrnSecs;
 	}
 
-	public int getScrnMins() {
-		return scrnMins;
-	}
-
-	public void setScrnMins(int scrnMins) {
-		this.scrnMins = scrnMins;
-	}
+	
 
 	public int getRestartSecs() {
 		return restartSecs;
@@ -296,18 +278,6 @@ public class ComunicacionServidor extends Thread {
 	public void setRestartSecs(int restartSecs) {
 		this.restartSecs = restartSecs;
 	}
-
-	public int getRestartMins() {
-		return restartMins;
-	}
-
-	public void setRestartMins(int restartMins) {
-		this.restartMins = restartMins;
-	}
-
-	
-	
-
 
 	
 

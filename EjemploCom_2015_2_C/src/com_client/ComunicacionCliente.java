@@ -25,7 +25,7 @@ public class ComunicacionCliente extends Thread {
 	public int turno;
 	public int fuerza;
 	public int escogio;
-	private int fuerzaOtroJugador;
+	public int fuerzaOtroJugador;
 	private int turnoOtroJugador;
 	private int yaEscogioElOtroJugador;
 	private boolean turnoActivo;
@@ -33,16 +33,18 @@ public class ComunicacionCliente extends Thread {
 	private boolean tiro, cedio;
 	
 	
+	public int posMono=3;
+	
 	public int cicloJuego;
 	
 	public int actualSecs;
 	public int actualMins;
 	public int startSec = 0;
-	public int startMin = 0;
+	
 	public int scrnSecs;
-	public int scrnMins = 0;
+	
 	public int restartSecs = 0;
-	public int restartMins = 0;
+	
 
 	public int intencion;
 	public int eleccion;
@@ -105,6 +107,13 @@ public class ComunicacionCliente extends Thread {
 				System.out.println("miTurno_cliente: "+turno+" "+"turno_Server: "+turnoOtroJugador);
 
 			 
+				
+				if (turnoOtroJugador==6) {
+					cicloJuego=6;
+					
+				}
+				
+				
 				}
 				
 				
@@ -191,9 +200,10 @@ public class ComunicacionCliente extends Thread {
 			
 				 restartSecs = actualSecs; //stores elapsed SECONDS
 				    scrnSecs = startSec; //restart screen timer  
-				    restartMins = actualMins; //stores elapsed MINUTES
-				    scrnMins = startMin; //restart screen timer
-				 //if mouse is pressed, restart timer	
+				   
+				 
+				    
+				    
 			}
 		
 			}
@@ -209,6 +219,7 @@ public class ComunicacionCliente extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	public int getTurno() {
