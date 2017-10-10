@@ -876,7 +876,7 @@ public class EjemploC extends PApplet {
 	@Override
 	public void mouseClicked() {
 
-		
+// vamosa  ver		
 		
 		if (comC.turno==3 && comC.cicloJuego==0) {
 			comC.enviar("INICIARjUEGO");
