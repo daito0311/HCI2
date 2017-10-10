@@ -107,17 +107,7 @@ public class ComunicacionServidor extends Thread {
 				
 			
 
-				if (gotime == false) {
-
-					if (turnoOtroJugador == 3 && turno == 3) {
-						turnoActivo = true;
-						gotime = true;
-						restartSecs = actualSecs; // stores elapsed SECONDS
-						scrnSecs = startSec; // restart screen timer
-
-					}
-
-				}
+			
 
 			}
 
@@ -130,15 +120,15 @@ public class ComunicacionServidor extends Thread {
 
 			}
 
-			// if (mensaje.contains("ciclogame")) {
-			// String[] partes = mensaje.split("/");
+			 if (mensaje.contains("ciclogame")) {
+			 String[] partes = mensaje.split("/");
 
-			// CicloGameOtroPlayer = Integer.parseInt(partes[1]);
+			 CicloGameOtroPlayer = Integer.parseInt(partes[1]);
 
-			// System.out.println("CICLO_server: " + cicloJuego + " " +
-			// "CICLO_cliente: " + fuerzaOtroJugador);
+			 System.out.println("CICLO_server: " + cicloJuego + " " +
+			 "CICLO_cliente: " + fuerzaOtroJugador);
 
-			// }
+			 }
 
 			// IGUALAR LOS SEGUNDOS DE LOS DOS JUGADORES
 			// if (mensaje.contains("Segundos")) {
@@ -190,6 +180,26 @@ public class ComunicacionServidor extends Thread {
 
 			//scrnSecs = scrnSecsOtroJugador;
 			// }
+			
+
+			if (gotime==false) {
+				
+			
+			if (turnoOtroJugador== 3 && turno ==3 && cicloJuego==0 && CicloGameOtroPlayer ==0) {
+				turnoActivo=true;
+				gotime=true;
+			
+				 restartSecs = actualSecs; //stores elapsed SECONDS
+				    scrnSecs = startSec; //restart screen timer  
+				   
+				 
+				    
+				    
+			}
+		
+			}
+			
+			
 
 			// turnoActivo=false;
 			salidaDatos.writeUTF("turno/" + turno);
