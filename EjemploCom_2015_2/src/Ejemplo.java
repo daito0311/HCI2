@@ -121,7 +121,8 @@ public class Ejemplo extends PApplet {
 
 			if (comS.cicloJuego == 0) {
 
-			
+				comS.intencion = 0;
+				comS.eleccion = 0;
 
 				if (empezartiempo == true) {
 
@@ -133,10 +134,9 @@ public class Ejemplo extends PApplet {
 						comS.restartSecs = comS.actualSecs; // stores elapsed
 															// SECONDS
 						comS.scrnSecs = comS.startSec; // restart screen timer
-				
-						// Actualizar
-						
-						comS.enviar("Actualizar");
+
+						// MINUTES
+
 					}
 
 				} else {
@@ -161,7 +161,7 @@ public class Ejemplo extends PApplet {
 				if (comS.scrnSecs >= 10) {
 
 					comS.cicloJuego++;
-					 comS.enviar("TIMEITSOVER");
+					// comS.enviar("TIMEITSOVER");
 					comS.setTurnoActivo(true);
 					comS.restartSecs = comS.actualSecs; // stores elapsed
 														// SECONDS
@@ -186,27 +186,27 @@ public class Ejemplo extends PApplet {
 
 						}
 
-					}
+					} else
 					// SERVIDOR TIRO CLIENTE CEDIO
 					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 1) {
 						comS.posMono -= 1;
 
-					}
+					} else
 					// SERVIDOR TIRO CLIENTE CEDIO o no tiro
 					if (comS.eleccion == 2 && comS.eleccionOtroJugador == 0) {
 						comS.posMono -= 1;
 
-					}
+					} else
 					// SERVIDOR CEDIO CLIENTE TIRO
 					if (comS.eleccion == 1 && comS.eleccionOtroJugador == 2) {
 						comS.posMono += 1;
 
-					}
+					} else
 					// SERVIDOR NO HIZO NADA CLIENTE TIRO
 					if (comS.eleccion == 0 && comS.eleccionOtroJugador == 2) {
 						comS.posMono += 1;
 
-					}
+					} else
 
 					// AMBOS CEDIERON NO PASA NADA
 					if (comS.eleccion == 1 && comS.eleccionOtroJugador == 1) {
@@ -218,10 +218,6 @@ public class Ejemplo extends PApplet {
 					// SECONDS
 					comS.scrnSecs = comS.startSec; // restart screen timer
 
-					// Actualizar
-					
-					comS.enviar("Actualizar");
-					
 				}
 			}
 
@@ -229,27 +225,28 @@ public class Ejemplo extends PApplet {
 				if (comS.scrnSecs >= 10) {
 
 					rounds++;
-					comS.cicloJuego++;
+
 					System.out.println("ROUNDS SERVER " + rounds);
 
-					// comS.gotime = false;
+					comS.gotime = false;
 
 					// comS.enviar("TIMEITSOVER");
+					comS.cicloJuego++;
 
-					// comS.restartSecs = comS.actualSecs; // stores elapsed
-					// SECONDS
-					// comS.scrnSecs = comS.startSec; // restart screen timer
+					comS.restartSecs = comS.actualSecs; // stores elapsed
+														// SECONDS
+					comS.scrnSecs = comS.startSec; // restart screen timer
 
 				}
 			}
 
-			// if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
-			// timer
-			// comS.restartSecs = comS.actualSecs; // placeholder for this
-			// second in time
-			// comS.scrnSecs = comS.startSec; // reset to zero
+			if (comS.actualSecs % 60 == 0) { // after 60 secs, restart second
+												// timer
+				comS.restartSecs = comS.actualSecs; // placeholder for this
+													// second in time
+				comS.scrnSecs = comS.startSec; // reset to zero
 
-			// }
+			}
 			switch (comS.cicloJuego) {
 
 			case 0:
@@ -257,7 +254,7 @@ public class Ejemplo extends PApplet {
 				// text(comS.cicloJuego, 20, 30);
 				image(fondo, 0, 0);
 
-				// AQUI VA EL DISEÑO DE LA CARTAS Y LAS ZONAS SENSIBLES CUANDO
+				// AQUI VA EL DISEï¿½O DE LA CARTAS Y LAS ZONAS SENSIBLES CUANDO
 				// EL MOUSE ESTE ENCIMA DE LA CARTA
 
 				// LINEA SUPERIOR DE CARTAS
@@ -619,7 +616,7 @@ public class Ejemplo extends PApplet {
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
-				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+				text("Comparte con tu contrincante que accion quieres realizar", 50, 100);
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
@@ -657,7 +654,7 @@ public class Ejemplo extends PApplet {
 				textSize(40);
 				fill(0);
 				text("Intencion por parte de los jugadores", 250, 100);
-				text("Tú", 160, height / 2);
+				text("Tu", 160, height / 2);
 
 				// TU INTENCION
 				image(principal, 55, height / 2 + 70);
@@ -685,13 +682,13 @@ public class Ejemplo extends PApplet {
 
 			case 3:
 
-				
+				comS.intencion = 0;
 				// SELECIONAR SU ACCION SI DESEA TIRAR O CEDER
 
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
-				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+				text("Escoge que accion realizar", 50, 100);
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
@@ -722,14 +719,14 @@ public class Ejemplo extends PApplet {
 
 			case 4:
 
-			
+				comS.intencion = 0;
 				// MOSTRAR ACCIONES DEL JUEGO
 
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
 				text("Aciones por parte de los jugadores", 250, 100);
-				text("Tú", 160, height / 2);
+				text("Tï¿½", 160, height / 2);
 
 				// TU ACCION
 
@@ -753,7 +750,7 @@ public class Ejemplo extends PApplet {
 				rect(width / 2 - 50 + 300, height / 2 + 310, 100, 40);
 				rect(width / 2 - 50 - 300, height / 2 + 310, 100, 40);
 
-				// MOÑO DEL JUEGO
+				// MOï¿½O DEL JUEGO
 
 				switch (comS.posMono) {
 				case 0:
@@ -870,15 +867,8 @@ public class Ejemplo extends PApplet {
 	@Override
 	public void mouseClicked() {
 
-		
-		
-		if (comS.turno==3 && comS.cicloJuego==0) {
-			comS.enviar("INICIARjUEGO");
-		}
-		
-		
 		if (comS.cicloJuego != 4 || comS.cicloJuego != 2) {
-		//	comS.enviar("hola Icesi soy server");
+			comS.enviar("hola Icesi soy server");
 		}
 
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comS.turno == 0) {
@@ -887,7 +877,6 @@ public class Ejemplo extends PApplet {
 
 		if (mouseX >= 900 && mouseX <= 900 + 204 && mouseY >= 550 && mouseY <= 550 + 88 && comS.turno > 0
 				&& comS.turno < 3) {
-			
 			comS.turno++;
 
 		}
@@ -1069,17 +1058,16 @@ public class Ejemplo extends PApplet {
 
 				// TIRAR
 				comS.eleccion = 2;
-				comS.enviar("Actualizar");
 				comS.setTurnoActivo(false);
+				comS.enviar("actualizar");
 
 			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 					&& mouseY <= height / 2 + 102) {
 
 				// CEDER
 				comS.eleccion = 1;
-				comS.enviar("Actualizar");
 				comS.setTurnoActivo(false);
-
+				comS.enviar("actualizar");
 			}
 		}
 

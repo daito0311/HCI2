@@ -137,10 +137,6 @@ public class EjemploC extends PApplet {
 						comC.restartSecs = comC.actualSecs; // stores elapsed
 															// SECONDS
 						comC.scrnSecs = comC.startSec; // restart screen timer
-						
-						// ACTUALIZAR
-
-						comC.enviar("ACTUALIZAR");
 
 					}
 
@@ -170,9 +166,7 @@ public class EjemploC extends PApplet {
 					comC.restartSecs = comC.actualSecs; // stores elapsed
 														// SECONDS
 					comC.scrnSecs = comC.startSec; // restart screen timer
-					// ACTUALIZAR
 
-					comC.enviar("ACTUALIZAR");
 				}
 			}
 
@@ -224,10 +218,6 @@ public class EjemploC extends PApplet {
 					// SECONDS
 					comC.scrnSecs = comC.startSec; // restart screen timer
 
-					// ACTUALIZAR
-
-					comC.enviar("ACTUALIZAR");
-					
 				}
 			}
 
@@ -237,18 +227,14 @@ public class EjemploC extends PApplet {
 					rounds++;
 					System.out.println("ROUNDS CLIENTE " + rounds);
 
-					// comC.gotime = false;
+					comC.gotime = false;
 
 					// comC.enviar("TIMEITSOVER");
 					comC.cicloJuego++;
 
-					// comC.restartSecs = comC.actualSecs; // stores elapsed
-					// SECONDS
-					// comC.scrnSecs = comC.startSec; // restart screen timer
-
-					// ACTUALIZAR
-
-					comC.enviar("ACTUALIZAR");
+					comC.restartSecs = comC.actualSecs; // stores elapsed
+														// SECONDS
+					comC.scrnSecs = comC.startSec; // restart screen timer
 
 				}
 			}
@@ -269,7 +255,7 @@ public class EjemploC extends PApplet {
 				// text(comC.cicloJuego, 20, 30);
 				image(fondo, 0, 0);
 
-				// AQUI VA EL DISEÑO DE LA CARTAS Y LAS ZONAS SENSIBLES CUANDO
+				// AQUI VA EL DISEï¿½O DE LA CARTAS Y LAS ZONAS SENSIBLES CUANDO
 				// EL MOUSE ESTE ENCIMA DE LA CARTA
 
 				// LINEA SUPERIOR DE CARTAS
@@ -630,7 +616,7 @@ public class EjemploC extends PApplet {
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
-				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+				text("Comparte con tu contrincante que accion quieres realizar", 50, 100);
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
@@ -667,7 +653,7 @@ public class EjemploC extends PApplet {
 				textSize(40);
 				fill(0);
 				text("Intencion por parte de los jugadores", 250, 100);
-				text("Tú", 930, height / 2);
+				text("Tu", 930, height / 2);
 
 				// TU INTENCION
 				image(principal, 55, height / 2 + 70);
@@ -700,7 +686,7 @@ public class EjemploC extends PApplet {
 				image(fondo, 0, 0);
 				textSize(40);
 				fill(0);
-				text("Comparte con tu contrincante que acción quieres realizar", 50, 100);
+				text("Elige que accion realizar", 50, 100);
 
 				if (mouseX >= width / 2 - 300 && mouseX <= width / 2 - 300 + 203 && mouseY >= height / 2
 						&& mouseY <= height / 2 + 102) {
@@ -738,7 +724,7 @@ public class EjemploC extends PApplet {
 				textSize(40);
 				fill(0);
 				text("Aciones por parte de los jugadores", 250, 100);
-				text("Tú", 930, height / 2);
+				text("Tï¿½", 930, height / 2);
 				image(principal, 50, height / 2 + 70);
 				image(inicial2, 870, height / 2 + 70);
 				image(rope, 0, height / 2 + 250);
@@ -757,7 +743,7 @@ public class EjemploC extends PApplet {
 				rect(width / 2 - 50 + 300, height / 2 + 310, 100, 40);
 				rect(width / 2 - 50 - 300, height / 2 + 310, 100, 40);
 
-				// MOÑO DEL JUEGO
+				// MOï¿½O DEL JUEGO
 
 				switch (comC.posMono) {
 				case 0:
@@ -876,22 +862,9 @@ public class EjemploC extends PApplet {
 	@Override
 	public void mouseClicked() {
 
-	
-		
-		if (comC.turno==3 && comC.cicloJuego==0) {
-			comC.enviar("INICIARjUEGO");
-		}
-		
-		
-		
-		
 		if (comC.cicloJuego != 4 || comC.cicloJuego != 2) {
-			//comC.enviar("hola Icesi soy server");
+			comC.enviar("hola Icesi soy server");
 		}
-		
-		
-		
-		
 
 		if (mouseX >= 550 && mouseX <= 550 + 204 && mouseY >= 450 && mouseY <= 450 + 88 && comC.turno == 0) {
 			comC.turno++;
@@ -900,7 +873,6 @@ public class EjemploC extends PApplet {
 		if (mouseX >= 900 && mouseX <= 900 + 204 && mouseY >= 550 && mouseY <= 550 + 88 && comC.turno > 0
 				&& comC.turno < 3) {
 			comC.turno++;
-		
 		}
 
 		// carta 1
@@ -1082,14 +1054,15 @@ public class EjemploC extends PApplet {
 				// CEDER
 				comC.eleccion = 1;
 				comC.setTurnoActivo(false);
-				
+				comC.enviar("actualizar");
+
 			} else if (mouseX >= width / 2 + 100 && mouseX <= width / 2 + 100 + 208 && mouseY >= height / 2
 					&& mouseY <= height / 2 + 102) {
 				// TIRAR
 
 				comC.eleccion = 2;
 				comC.setTurnoActivo(false);
-			
+				comC.enviar("actualizar");
 
 			}
 		}

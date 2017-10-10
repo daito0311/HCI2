@@ -105,21 +105,7 @@ public class ComunicacionCliente extends Thread {
 				turnoOtroJugador = Integer.parseInt(partes[1]);
 				System.out.println("miTurno_cliente: "+turno+" "+"turno_Server: "+turnoOtroJugador);
 
-
-				
-				if (gotime == false) {
-
-					if (turnoOtroJugador == 3 && turno == 3 && cicloJuego==0 && cicloGameOtroPlayer== 0) {
-						turnoActivo = true;
-						gotime = true;
-						restartSecs = actualSecs; // stores elapsed SECONDS
-						scrnSecs = startSec; // restart screen timer
-
-					}
-
-				}
-				
-				
+			 
 				
 				if (turnoOtroJugador==6) {
 					cicloJuego=6;
@@ -206,6 +192,22 @@ public class ComunicacionCliente extends Thread {
 			
 
 
+			if (gotime==false) {
+				
+			
+			if ((turnoOtroJugador==3 || turnoOtroJugador==2 ) && turno ==3) {
+				turnoActivo=true;
+				gotime=true;
+			
+				 restartSecs = actualSecs; //stores elapsed SECONDS
+				    scrnSecs = startSec; //restart screen timer  
+				   
+				 
+				    
+				    
+			}
+		
+			}
 			
 			
 			
