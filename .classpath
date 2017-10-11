@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="EjemploCom_2015_2_C/src"/>
+	<classpathentry kind="src" path="EjemploCom_2015_2/src"/>
+	<classpathentry kind="lib" path="EjemploCom_2015_2_C/libs/core.jar"/>
+	<classpathentry kind="lib" path="EjemploCom_2015_2/libs/core.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="EjemploCom_2015_2/bin"/>
+</classpath>

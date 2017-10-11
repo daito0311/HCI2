@@ -56,7 +56,7 @@ public class ComunicacionCliente extends Thread {
 	
 		turnoActivo=true;
 		try {
-			servidor = new Socket(InetAddress.getByName("127.0.0.1"), puerto);
+			servidor = new Socket(InetAddress.getByName("192.168.01.51"), puerto);
 			System.out.println("exito!");
 		} catch (UnknownHostException uhe) {
 			uhe.printStackTrace();
@@ -162,7 +162,7 @@ public class ComunicacionCliente extends Thread {
 
 				scrnSecsOtroJugador = Integer.parseInt(partes[1]);
 
-			
+			scrnSecs=scrnSecsOtroJugador;
 				
 
 			}
@@ -195,7 +195,7 @@ public class ComunicacionCliente extends Thread {
 			if (gotime==false) {
 				
 			
-			if ((turnoOtroJugador==3 || turnoOtroJugador==2 ) && turno ==3) {
+			if ((turnoOtroJugador==3) && turno ==3) {
 				turnoActivo=true;
 				gotime=true;
 			
